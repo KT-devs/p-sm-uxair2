@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+
+  <groupId>ru.kataproject</groupId>
+  <artifactId>uxair2</artifactId>
+  <version>0.0.1-SNAPSHOT</version>
+  <packaging>pom</packaging>
+  <name>UXAirOne</name>
+
+  <modules>
+    <module>authorization-service</module>
+    <module>api-gateway</module>
+    <module>eureka-server</module>
+    <module>flight-service</module>
+    <module>config-service</module>
+    <module>user-management</module>
+    <module>notification-service</module>
+    <module>db-migration</module>
+
+  </modules>
+
+</project>
