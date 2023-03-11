@@ -1,4 +1,4 @@
-package ru.uxair1.flight_service.util.exceptions;
+package ru.uxair1.apigateway.util.exceptions;
 
 public abstract class AbstractResourceAlreadyExistsException extends RuntimeException {
 
