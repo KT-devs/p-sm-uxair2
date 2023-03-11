@@ -1,0 +1,27 @@
+spring:
+  application:
+    name: config-server
+  profiles:
+    active:
+      - native # native, git - способ хранения файлов конфигурации
+  #Указываем место где хрятся файлы конфигурации сервисов
+  cloud:
+    config:
+      server:
+        native:
+          search-locations: classpath:/config
+
+          #Настройки если файлы конфигурации хранятся на git
+          #git:
+          # uri: https://github.com/
+          #searchPaths:
+
+server:
+  port: 8071
+
+#Включить все эндпоинты актуатора
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"
