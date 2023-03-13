@@ -27,4 +27,8 @@ management:
         include: "*"
 logging:
   level:
-    ROOT: INFO
+    root: info
+eureka:
+  client:
+    service-url:
+      defaultZone: http://localhost:8761/eureka/
