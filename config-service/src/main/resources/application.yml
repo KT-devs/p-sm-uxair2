@@ -7,14 +7,18 @@ spring:
   #Указываем место где хрятся файлы конфигурации сервисов
   cloud:
     config:
+      discovery:
+        enabled: true
+        service-id: config-server
       server:
         native:
           search-locations: classpath:/config
-
           #Настройки если файлы конфигурации хранятся на git
           #git:
           # uri: https://github.com/
           #searchPaths:
+        svn:
+          search-paths: ${application}
 
 server:
   port: 8071
@@ -28,7 +32,3 @@ management:
 logging:
   level:
     root: info
-eureka:
-  client:
-    service-url:
-      defaultZone: http://localhost:8761/eureka/
