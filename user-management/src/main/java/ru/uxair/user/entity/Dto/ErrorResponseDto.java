@@ -1,4 +1,4 @@
-package ru.uxair1.apigateway.entity.Dto;
+package ru.uxair.user.entity.Dto;
 
 public class ErrorResponseDto {
 
