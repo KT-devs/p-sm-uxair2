@@ -7,10 +7,16 @@ eureka:
     registerWithEureka: true
     fetchRegistry: true
     serviceUrl:
-      defaultZone: http://eurekaserver:8070/eureka/
+      defaultZone: http://localhost:8761/eureka/
 spring:
   cloud:
     gateway:
-      discovery.locator:
-        enabled: true #Разрешает гейтвею автаматически определять маршруты до сервисов
-        lowerCaseServiceId: true
+      discovery:
+        locator:
+          enabled: true #Разрешает гейтвею автаматически определять маршруты до сервисов
+          lowerCaseServiceId: true
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"
