@@ -4,23 +4,23 @@ databaseChangeLog:
       author: Bronilav Chertlov
       changes:
         - createTable:
-            tableName: Seat
+            tableName: seat
             columns:
               - column:
                   name: id
-                  type: int
+                  type: integer
                   autoIncrement: true
                   constraints:
                     primaryKey: true
                     nullable: false
               - column:
                   name: airctaft_id
-                  type: int
+                  type: integer
                   constraints:
                     nullable: false
               - column:
                   name: seatType
-                  type: int
+                  type: integer
                   constraints:
                     nullable: false
               - column:
