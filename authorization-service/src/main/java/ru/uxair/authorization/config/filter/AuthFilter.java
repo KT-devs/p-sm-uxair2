@@ -1,4 +1,4 @@
-package ru.uxair1.authorizationservice.config.filter;
+package ru.uxair.authorization.config.filter;
 
 import com.auth0.jwt.JWT;
 import com.auth0.jwt.algorithms.Algorithm;

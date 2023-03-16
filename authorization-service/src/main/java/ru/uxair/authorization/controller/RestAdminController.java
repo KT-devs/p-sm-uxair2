@@ -1,12 +1,12 @@
-package ru.uxair1.authorizationservice.controller;
+package ru.uxair.authorization.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import ru.uxair1.authorizationservice.entity.Role;
-import ru.uxair1.authorizationservice.service.UserService;
-import ru.uxair1.authorizationservice.entity.User;
+import ru.uxair.authorization.entity.Role;
+import ru.uxair.authorization.entity.User;
+import ru.uxair.authorization.service.UserService;
 
 
 import java.util.List;

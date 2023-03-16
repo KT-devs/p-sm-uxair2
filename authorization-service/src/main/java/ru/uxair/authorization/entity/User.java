@@ -1,4 +1,4 @@
-package ru.uxair1.authorizationservice.entity;
+package ru.uxair.authorization.entity;
 
 import lombok.Data;
 
@@ -15,6 +15,7 @@ public class User{
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
     @Email
+    @Column(unique = true)
     private String username;
     private String password;
 

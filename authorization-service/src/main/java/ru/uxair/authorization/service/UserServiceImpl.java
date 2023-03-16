@@ -1,4 +1,4 @@
-package ru.uxair1.authorizationservice.service;
+package ru.uxair.authorization.service;
 
 import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,10 +9,10 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import ru.uxair1.authorizationservice.entity.Role;
-import ru.uxair1.authorizationservice.entity.User;
-import ru.uxair1.authorizationservice.repository.RoleRepository;
-import ru.uxair1.authorizationservice.repository.UserRepository;
+import ru.uxair.authorization.entity.Role;
+import ru.uxair.authorization.entity.User;
+import ru.uxair.authorization.repository.RoleRepository;
+import ru.uxair.authorization.repository.UserRepository;
 
 import java.util.ArrayList;
 import java.util.Collection;

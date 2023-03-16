@@ -1,4 +1,4 @@
-package ru.uxair1.authorizationservice.entity;
+package ru.uxair.authorization.entity;
 
 import lombok.Data;
 
@@ -13,6 +13,7 @@ public class Role{
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
+    @Column(unique = true)
     private String role;
 
     public Role(String role) {

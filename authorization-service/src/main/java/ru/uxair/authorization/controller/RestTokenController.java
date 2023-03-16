@@ -1,4 +1,4 @@
-package ru.uxair1.authorizationservice.controller;
+package ru.uxair.authorization.controller;
 
 import com.auth0.jwt.JWT;
 import com.auth0.jwt.JWTVerifier;
@@ -10,9 +10,9 @@ import org.springframework.core.env.Environment;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import ru.uxair1.authorizationservice.entity.Role;
-import ru.uxair1.authorizationservice.entity.User;
-import ru.uxair1.authorizationservice.service.UserService;
+import ru.uxair.authorization.entity.User;
+import ru.uxair.authorization.entity.Role;
+import ru.uxair.authorization.service.UserService;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;

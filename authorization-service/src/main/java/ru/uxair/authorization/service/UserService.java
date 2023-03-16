@@ -1,8 +1,8 @@
-package ru.uxair1.authorizationservice.service;
+package ru.uxair.authorization.service;
 
 import org.springframework.security.core.userdetails.UserDetailsService;
-import ru.uxair1.authorizationservice.entity.Role;
-import ru.uxair1.authorizationservice.entity.User;
+import ru.uxair.authorization.entity.Role;
+import ru.uxair.authorization.entity.User;
 
 import java.util.List;
 import java.util.Optional;

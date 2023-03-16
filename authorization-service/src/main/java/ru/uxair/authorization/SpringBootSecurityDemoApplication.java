@@ -4,9 +4,9 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
-import ru.uxair1.authorizationservice.entity.Role;
-import ru.uxair1.authorizationservice.entity.User;
-import ru.uxair1.authorizationservice.service.UserService;
+import ru.uxair.authorization.entity.Role;
+import ru.uxair.authorization.entity.User;
+import ru.uxair.authorization.service.UserService;
 
 import java.util.Arrays;
 
@@ -17,8 +17,9 @@ public class SpringBootSecurityDemoApplication {
 		SpringApplication.run(SpringBootSecurityDemoApplication.class, args);
 	}
 
+	// TO DO сделать liquibase UXAR2-22
 	@Bean
-	CommandLineRunner runner (UserService userService) {
+	CommandLineRunner runner(UserService userService) {
 		return args -> {
 			Role ROLE_SUPERADMIN = new Role("ROLE_SUPERADMIN");
 			Role ROLE_ADMIN = new Role("ROLE_ADMIN");
@@ -32,7 +33,7 @@ public class SpringBootSecurityDemoApplication {
 
 			userService.saveUser(new User("admin@mail.ru", "admin", Arrays.asList(ROLE_ADMIN, ROLE_MANAGER)));
 			userService.saveUser(new User("user@mail.ru", "user", Arrays.asList(ROLE_CUSTOMER)));
+
 		};
 	}
-
 }

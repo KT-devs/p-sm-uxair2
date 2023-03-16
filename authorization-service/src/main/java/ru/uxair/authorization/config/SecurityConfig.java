@@ -1,4 +1,4 @@
-package ru.uxair1.authorizationservice.config;
+package ru.uxair.authorization.config;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
@@ -13,9 +13,10 @@ import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
-import ru.uxair1.authorizationservice.config.filter.AuthFilter;
-import ru.uxair1.authorizationservice.config.filter.AuthorizationFilter;
-import ru.uxair1.authorizationservice.service.UserService;
+import ru.uxair.authorization.config.filter.AuthFilter;
+import ru.uxair.authorization.config.filter.AuthorizationFilter;
+import ru.uxair.authorization.service.UserService;
+
 
 @Configuration
 @EnableWebSecurity
