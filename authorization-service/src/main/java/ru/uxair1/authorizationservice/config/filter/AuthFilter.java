@@ -25,10 +25,11 @@ import java.util.stream.Collectors;
 
 import static org.springframework.util.MimeTypeUtils.APPLICATION_JSON_VALUE;
 
+// Фильтр для получения JWT токенов
 public class AuthFilter extends UsernamePasswordAuthenticationFilter {
 
     private final AuthenticationManager authenticationManager;
-    private Environment environment;
+    private final Environment environment;
 
     public AuthFilter(AuthenticationManager authenticationManager, Environment environment) {
         this.authenticationManager = authenticationManager;
@@ -43,19 +44,20 @@ public class AuthFilter extends UsernamePasswordAuthenticationFilter {
         return authenticationManager.authenticate(authenticationToken);
     }
 
+    // Получение JWT токенов
     @Override
     protected void successfulAuthentication(HttpServletRequest request, HttpServletResponse response, FilterChain chain, Authentication authResult) throws IOException, ServletException {
         User user = (User) authResult.getPrincipal();
         Algorithm algorithm = Algorithm.HMAC256(environment.getProperty("jwt.token.secret").getBytes());
         String accessToken = JWT.create()
                 .withSubject(user.getUsername())
-                .withExpiresAt(new Date(System.currentTimeMillis() + 3600000))
+                .withExpiresAt(new Date(System.currentTimeMillis() + 3600000)) // на час
                 .withIssuer(request.getRequestURL().toString())
                 .withClaim("roles", user.getAuthorities().stream().map(GrantedAuthority::getAuthority).collect(Collectors.toList()))
                 .sign(algorithm);
         String refreshToken = JWT.create()
                 .withSubject(user.getUsername())
-                .withExpiresAt(new Date(System.currentTimeMillis() + 86400000))
+                .withExpiresAt(new Date(System.currentTimeMillis() + 86400000)) // на 24 часа
                 .withIssuer(request.getRequestURL().toString())
                 .sign(algorithm);
         response.setHeader("access_token", accessToken);

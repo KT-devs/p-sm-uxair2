@@ -1,10 +1,10 @@
 package ru.uxair1.authorizationservice.entity;
 
 import lombok.Data;
-import org.springframework.security.core.GrantedAuthority;
 
 import javax.persistence.*;
 
+// Сущность ролей пользователя
 @Entity
 @Table(name = "roles")
 @Data

@@ -1,7 +1,6 @@
 package ru.uxair1.authorizationservice.service;
 
 import org.springframework.security.core.userdetails.UserDetailsService;
-import org.springframework.transaction.annotation.Transactional;
 import ru.uxair1.authorizationservice.entity.Role;
 import ru.uxair1.authorizationservice.entity.User;
 

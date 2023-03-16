@@ -1,15 +1,12 @@
 package ru.uxair1.authorizationservice.entity;
 
 import lombok.Data;
-import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.authority.SimpleGrantedAuthority;
-import org.springframework.security.core.userdetails.UserDetails;
 
 import javax.persistence.*;
 import javax.validation.constraints.Email;
-import java.util.Collection;
 import java.util.List;
 
+// Сущность пользователя
 @Entity
 @Table(name = "users")
 @Data
@@ -32,6 +29,5 @@ public class User{
 
     public User(){
     }
-
 }
 

@@ -25,6 +25,7 @@ import java.util.stream.Collectors;
 import static org.springframework.http.HttpStatus.FORBIDDEN;
 import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
 
+// Контроллер для обновления токена авторизации не используя заново аутентификацию
 @RestController
 @RequestMapping("/api/token")
 public class RestTokenController {
@@ -37,6 +38,7 @@ public class RestTokenController {
         this.userService = userService;
     }
 
+    // Получить новый токен access_token используя для этого действующий refresh_token
     @GetMapping("/refresh")
     public void refreshToken(HttpServletRequest request, HttpServletResponse response) throws IOException {
         String authorizationHeader = request.getHeader("Authorization");
