@@ -1,0 +1,31 @@
+databaseChangeLog:
+  - changeSet:
+      id: create-seat
+      author: Bronilav Chertlov
+      changes:
+        - createTable:
+            tableName: Seat
+            columns:
+              - column:
+                  name: id
+                  type: int
+                  autoIncrement: true
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: airctaft_id
+                  type: int
+                  constraints:
+                    nullable: false
+              - column:
+                  name: seatType
+                  type: int
+                  constraints:
+                    nullable: false
+              - column:
+                  name: seatNumber
+                  type: varchar(255)
+                  constraints:
+                    nullable: true
+  
