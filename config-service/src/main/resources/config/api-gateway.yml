@@ -22,4 +22,4 @@ management:           #
   endpoints:          #
     web:              #   Включает отображение всех endpoint для актуатора
       exposure:       #
-        include: *    #
+        include: "*"  #
