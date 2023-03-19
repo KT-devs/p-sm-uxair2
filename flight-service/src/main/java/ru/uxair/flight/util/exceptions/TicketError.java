@@ -1,12 +1,7 @@
-package ru.uxair.flight.entity.Dto;
+package ru.uxair.flight.util.exceptions;
 
-public class ErrorResponseDto {
-
+public class TicketError {
     private String message;
-
-    public ErrorResponseDto(String message) {
-        this.message = message;
-    }
 
     public String getMessage() {
         return message;
@@ -14,5 +9,8 @@ public class ErrorResponseDto {
 
     public void setMessage(String message) {
         this.message = message;
+    }
+
+    public TicketError() {
     }
 }
