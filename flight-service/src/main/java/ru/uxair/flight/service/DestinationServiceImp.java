@@ -6,7 +6,6 @@ import org.springframework.transaction.annotation.Transactional;
 import ru.uxair.flight.entity.Destination;
 import ru.uxair.flight.entity.Dto.DestinationDto;
 import ru.uxair.flight.repository.DestinationRepository;
-import ru.uxair1.flight_service.util.exceptions.AbstractResourceNotFoundException;
 import ru.uxair.flight.util.mapper.DestinationMapping;
 
 import java.util.List;
@@ -29,14 +28,14 @@ public class DestinationServiceImp implements DestinationService {
 
     @Override
     @Transactional
-    public void save(DestinationDto destinationDto) {
+    public void saveDestination(DestinationDto destinationDto) {
         destinationRepository.save(destinationMapping.mapToDestinationEntity(destinationDto));
     }
 
     @Override
     @Transactional
-    public void update(long id, DestinationDto destinationDtoUpdate) {
-        Destination destination = destinationRepository.findById(id);
+    public void updateDestination(long id, DestinationDto destinationDtoUpdate) {
+        Destination destination = destinationRepository.getReferenceById(id);
         Destination destinationUpdate = destinationMapping.mapToDestinationEntity(destinationDtoUpdate);
         destination.setCity(destinationUpdate.getCity());
         destination.setCountryName(destinationUpdate.getCountryName());
@@ -49,25 +48,29 @@ public class DestinationServiceImp implements DestinationService {
 
     @Override
     @Transactional(readOnly = true)
-    public DestinationDto findById(long id) {
-        return destinationMapping.mapToDestinationDto(destinationRepository.findById(id));
+    public DestinationDto getDestinationById(long id) {
+        return destinationMapping.mapToDestinationDto(destinationRepository.getReferenceById(id));
     }
 
     @Override
     @Transactional(readOnly = true)
-    public DestinationDto findByCity(String city) {
-        return destinationMapping.mapToDestinationDto(destinationRepository.findByCity(city));
+    public List<DestinationDto> getDestinationByCity(String city) {
+        return destinationRepository.getDestinationByCity(city).stream()
+                .map(destinationMapping::mapToDestinationDto)
+                .collect(Collectors.toList());
     }
 
     @Override
     @Transactional(readOnly = true)
-    public DestinationDto findByCountryName(String countryName) {
-        return destinationMapping.mapToDestinationDto(destinationRepository.findByCountryName(countryName));
+    public List<DestinationDto> getDestinationByCountryName(String countryName) {
+        return destinationRepository.getDestinationByCountryName(countryName).stream()
+                .map(destinationMapping::mapToDestinationDto)
+                .collect(Collectors.toList());
     }
 
     @Override
     @Transactional(readOnly = true)
-    public List<DestinationDto> findAll() {
+    public List<DestinationDto> getAllDestination() {
         return destinationRepository.findAll().stream()
                 .map(destinationMapping::mapToDestinationDto)
                 .collect(Collectors.toList());

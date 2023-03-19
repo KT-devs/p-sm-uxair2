@@ -3,69 +3,37 @@ package ru.uxair.flight.controller;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.tags.Tag;
-import lombok.extern.log4j.Log4j2;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import ru.uxair.flight.entity.Dto.DestinationDto;
-import ru.uxair.flight.service.DestinationService;
 
 import java.util.List;
 
-/**
- * Контроллер Направления
- */
-@Log4j2
-@RestController
 @RequestMapping("/destination")
 @Tag(name = "Направление", description = "Взаимодействует с направлением")
-public class DestinationController {
-
-    private final DestinationService destinationService;
-
-    @Autowired
-    public DestinationController(DestinationService destinationService) {
-        this.destinationService = destinationService;
-    }
+public interface DestinationController {
 
     @PostMapping
     @Operation(summary = "Добавление направления", description = "Позволяет добавить направление в бд")
-    public void save(@RequestBody DestinationDto destinationDto) {
-        log.info("add destination");
-        destinationService.save(destinationDto);
-    }
+    void saveDestination(@RequestBody DestinationDto destinationDto);
 
     @PatchMapping("/{id}")
     @Operation(summary = "Обновление направления", description = "Позволяет обновить направление в бд")
-    public void update(@PathVariable @Parameter(description = "Идентификатор направления") long id, @RequestBody DestinationDto destinationDto) {
-        log.info("update destination");
-        destinationService.update(id, destinationDto);
-    }
+    void updateDestination(@PathVariable @Parameter(description = "Идентификатор направления") long id, @RequestBody DestinationDto destinationDto);
 
     @GetMapping("/{id}")
-    @Operation(summary = "Получение направления", description = "Позволяет получить направление по id")
-    public DestinationDto getById(@PathVariable long id) {
-        log.info("get destination by id");
-        return destinationService.findById(id);
-    }
+    @Operation(summary = "Получение направления по id", description = "Позволяет получить направление по id")
+    DestinationDto getDestinationById(@PathVariable @Parameter(description = "Идентификатор направления") long id);
 
-    @GetMapping("/{city}")
-    @Operation(summary = "Получение направления", description = "Позволяет получить направление по горооду")
-    public DestinationDto getByCity(@PathVariable String city) {
-        log.info("get destination by city");
-        return destinationService.findByCity(city);
-    }
+    @GetMapping("/city/{city}")
+    @Operation(summary = "Получение направления по названию города", description = "Позволяет получить направление по горооду")
+    List<DestinationDto> getDestinationByCity(@PathVariable @Parameter(description = "Название города") String city);
 
-    @GetMapping("/{countryName}")
-    @Operation(summary = "Получение направления", description = "Позволяет получить направление по названию страны")
-    public DestinationDto getByCountryName(@PathVariable String countryName) {
-        log.info("get destination by countryName");
-        return destinationService.findByCountryName(countryName);
-    }
+    @GetMapping("/countryName/{countryName}")
+    @Operation(summary = "Получение направления по названию страны", description = "Позволяет получить направление по названию страны")
+    List<DestinationDto> getDestinationByCountryName(@PathVariable @Parameter(description = "Название страны") String countryName);
 
     @GetMapping
-    @Operation(summary = "Получение направления", description = "Позволяет получить все направления")
-    public List<DestinationDto> findAll() {
-        log.info("get all destination");
-        return destinationService.findAll();
-    }
+    @Operation(summary = "Получение всех направлений", description = "Позволяет получить все направления")
+    List<DestinationDto> getAllDestination();
+
 }

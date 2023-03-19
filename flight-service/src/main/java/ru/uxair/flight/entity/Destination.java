@@ -30,7 +30,6 @@ public class Destination {
     private String airportName;
     @Column(name = "airport_code")
     private int airportCode;
-
 //    ?????
     @Column(name = "timezone")
     private LocalDateTime timezone;
