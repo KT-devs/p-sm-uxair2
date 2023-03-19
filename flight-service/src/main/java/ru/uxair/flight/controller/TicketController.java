@@ -1,94 +1,99 @@
 package ru.uxair.flight.controller;
 
-import io.swagger.v3.oas.annotations.Operation;
-import io.swagger.v3.oas.annotations.responses.ApiResponse;
-import io.swagger.v3.oas.annotations.responses.ApiResponses;
-import io.swagger.v3.oas.annotations.tags.Tag;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
-import ru.uxair.flight.entity.Dto.TicketDto;
-import ru.uxair.flight.util.MarkerDto;
+import ru.uxair.flight.entity.Ticket;
+import ru.uxair.flight.service.TicketService;
+import ru.uxair.flight.util.exceptions.TicketNotFoundException;
 
-import javax.validation.Valid;
 import java.util.List;
-@Validated
-@Tag(name = "Билет", description = "API управления билетами")
-@RequestMapping("/api/flight-service/ticket")
-public interface TicketController {
-    @ApiResponses(value = {
-            @ApiResponse(responseCode = "404", description = "Список пустой")})
-    @Operation(summary = "Список ввсех билетов",
-            description = "Получить список всех билетов из БД")
-    @GetMapping
-    ResponseEntity<List<TicketDto>> getAllTickets();
-
-    @ApiResponses(value = {
-            @ApiResponse(responseCode = "404", description = "Список пустой")})
-    @Operation(summary = "Список билетов по категории",
-            description = "Список билетов по категории (бизнес, эконом и т.д...)")
-    @GetMapping("/category/{category}")
-    ResponseEntity<List<TicketDto>> getTicketsBySeatCategory(@PathVariable String category);
-
-    @ApiResponses(value = {
-            @ApiResponse(responseCode = "404", description = "Список пустой")})
-    @Operation(summary = "Получить билеты по пассажиру",
-            description = "Получить все билеты определенного пассажира")
-    @GetMapping("/passenger/{passenger}")
-    ResponseEntity<List<TicketDto>> getTicketByPassenger(@PathVariable String passenger);
-
-    @ApiResponses(value = {
-            @ApiResponse(responseCode = "404", description = "Список пустой")})
-    @Operation(summary = "Билеты по рейсу",
-            description = "Получить все билеты определенного рейса")
-    @GetMapping("/flight/{flight}")
-    ResponseEntity<List<TicketDto>> getTicketByFlight(@PathVariable String flight);
-
-    @ApiResponses(value = {
-            @ApiResponse(responseCode = "404", description = "Список пустой")})
-    @Operation(summary = "Список билетов сортированный МИН-МАКС стоимость",
-            description = "Получить список билетов отсортированный от минимальной к максимальной цене")
-    @GetMapping("/sortMinToMax")
-    ResponseEntity<List<TicketDto>> getTicketsFareMinToMax();
-
-    @ApiResponses(value = {
-            @ApiResponse(responseCode = "404", description = "Список пустой")})
-    @Operation(summary = "Список билетов сортированный МАКС-МИН стоимость",
-            description = "Получить список билетов отсортированный от максимальной к мнимальной цене")
-    @GetMapping("/sortMaxToMin")
-    ResponseEntity<List<TicketDto>> getTicketsFareMaxToMin();
 
 
-    @ApiResponses(value = {
-            @ApiResponse(responseCode = "400", description = "Указан не верный идентификатор"),
-            @ApiResponse(responseCode = "404", description = "Билет не найден")})
-    @Operation(summary = "Поиск билета по ID")
-    @GetMapping("/{id}")
-    ResponseEntity<?> findTicketById(@PathVariable Long id);
+@RestController
+@RequestMapping("/api/flight-service")
+public class TicketController {
+    private final TicketService ticketService;
 
+    @Autowired
+    public TicketController(TicketService ticketService) {
+        this.ticketService = ticketService;
+    }
 
-    @ApiResponses(value = {
-            @ApiResponse(responseCode = "201", description = "Билет создан"),
-            @ApiResponse(responseCode = "400", description = "Неверный ввод"),
-            @ApiResponse(responseCode = "409", description = "Такой билет уже существует") })
-    @Operation(summary = "Сохранить билет в БД")
-    @PostMapping
-    @Validated({MarkerDto.OnCreate.class})
-    ResponseEntity<TicketDto> saveTicket(@Valid @RequestBody TicketDto ticketDto);
+    @GetMapping("/tickets")
+    public List<Ticket> getAllTickets() {
+        List<Ticket> tickets = ticketService.getAllTickets();
+        if (tickets.isEmpty()) {
+            throw new TicketNotFoundException("Билетов нет");
+        }
+        return tickets;
+    }
 
+    @GetMapping("/tickets/{category}")
+    public List<Ticket> getTicketsBySeatCategory(@PathVariable String category) {
+        List<Ticket> tickets = ticketService.getTicketsBySeatCategory(category);
+        if (tickets.isEmpty()) {
+            throw new TicketNotFoundException("В категории " + category + " нет билетов");
+        }
+        return tickets;
+    }
 
-    @ApiResponses(value = {
-            @ApiResponse(responseCode = "400", description = "Указан не верный идентификатор"),
-            @ApiResponse(responseCode = "404", description = "Билет не найден")})
-    @Operation(summary = "Удалить билет из БД")
-    @DeleteMapping("/{id}")
-    ResponseEntity<String> deleteTicket(@PathVariable Long id);
+    @GetMapping("/tickets/{passenger}")
+    public List<Ticket> getTicketByPassenger(@PathVariable String passenger) {
+        List<Ticket> tickets = ticketService.getTicketByPassenger(passenger);
+        if (tickets.isEmpty()) {
+            throw new TicketNotFoundException("У пассажира " + passenger + " нет билета");
+        }
+        return tickets;
+    }
 
-    @ApiResponses(value = {
-            @ApiResponse(responseCode = "404", description = "Билет не найден"),
-            @ApiResponse(responseCode = "400", description = "Неверный ввод")})
-    @Operation(summary = "Изменить билет")
-    @PutMapping
-    @Validated({MarkerDto.OnUpdate.class})
-    ResponseEntity<TicketDto> updateTicket (@Valid @RequestBody TicketDto ticketDto);
+    @GetMapping("/tickets/{flight}")
+    public List<Ticket> getTicketByFlight(@PathVariable String flight) {
+        List<Ticket> tickets = ticketService.getTicketsByFlight(flight);
+        if (tickets.isEmpty()) {
+            throw new TicketNotFoundException("На рейс " + flight + " нет билетов");
+        }
+        return tickets;
+    }
+
+    @GetMapping("/tickets/sortMinToMax")
+    public List<Ticket> getTicketsFareMinToMax() {
+        List<Ticket> tickets = ticketService.getTicketsFareMinToMax();
+        if (tickets.isEmpty()) {
+            throw new TicketNotFoundException("Билетов нет");
+        }
+        return tickets;
+    }
+
+    @GetMapping("/tickets/sortMaxToMin")
+    public List<Ticket> getTicketsFareMaxToMin() {
+        List<Ticket> tickets = ticketService.getTicketsFareMaxToMin();
+        if (tickets.isEmpty()) {
+            throw new TicketNotFoundException("Билетов нет");
+        }
+        return tickets;
+    }
+
+    @GetMapping("/tickets/{id}")
+    public Ticket findTicketById(@PathVariable Long id) {
+        return ticketService.findTicketById(id);
+    }
+
+    @PostMapping("/tickets/save")
+    public ResponseEntity<String> saveTicket(@RequestBody Ticket ticket) {
+        ResponseEntity<String> entity;
+        try {
+            ticketService.saveTicket(ticket);
+            entity = new ResponseEntity<>("Пользователь сохранен", HttpStatus.OK);
+        } catch (RuntimeException e) {
+            entity = new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
+        }
+        return entity;
+    }
+
+    @DeleteMapping("/tickets/{id}")
+    public void deleteTicket(@PathVariable Long id) {
+        ticketService.deleteTicket(id);
+    }
 }

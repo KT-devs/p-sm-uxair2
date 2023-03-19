@@ -2,10 +2,9 @@ package ru.uxair.flight.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.webjars.NotFoundException;
 import ru.uxair.flight.entity.Ticket;
 import ru.uxair.flight.repository.TicketRepository;
-
+import ru.uxair.flight.util.exceptions.TicketNotFoundException;
 
 import java.util.List;
 import java.util.Optional;
@@ -49,7 +48,7 @@ public class TicketServiceImpl implements TicketService{
     @Override
     public Ticket findTicketById(Long id) {
         Optional<Ticket> ticket = ticketRepository.findById(id);
-        return ticket.orElseThrow(()-> new NotFoundException("Билет с id "+id+" не найден"));
+        return ticket.orElseThrow(()-> new TicketNotFoundException("Билет с id "+id+" не найден"));
     }
 
     @Override
