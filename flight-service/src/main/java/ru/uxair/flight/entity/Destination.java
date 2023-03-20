@@ -30,8 +30,12 @@ public class Destination {
     private String airportName;
     @Column(name = "airport_code")
     private int airportCode;
-//    ?????
+    /**
+     * UTC - Всемирное координированное время
+     * пример в БД UTC+3 - это Московское
+     *             UTC+9:30 - Южная Австралия, Северная территория
+     */
     @Column(name = "timezone")
-    private LocalDateTime timezone;
+    private String timezone;
 
 }

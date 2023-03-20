@@ -22,6 +22,6 @@ public class DestinationDto {
     private int countryCode;
     private String airportName;
     private int airportCode;
-    private LocalDateTime timezone;
+    private String timezone;
 
 }
