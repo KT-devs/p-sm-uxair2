@@ -12,17 +12,13 @@ spring:
         service-id: config-server
       server:
         native:
-          search-locations: classpath:/config
+          search-locations: classpath:/config/${}
           #Настройки если файлы конфигурации хранятся на git
           #git:
           # uri: https://github.com/
           #searchPaths:
-        svn:
-          search-paths: ${application}
-
 server:
   port: 8071
-
 #Включить все эндпоинты актуатора
 management:
   endpoints:
