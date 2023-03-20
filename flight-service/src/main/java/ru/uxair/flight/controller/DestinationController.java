@@ -20,7 +20,11 @@ public interface DestinationController {
     @Operation(summary = "Обновление направления", description = "Позволяет обновить направление в бд")
     void updateDestination(@PathVariable @Parameter(description = "Идентификатор направления") long id, @RequestBody DestinationDto destinationDto);
 
-    @GetMapping("/{id}")
+    @DeleteMapping("/{id}")
+    @Operation(summary = "Удаление направления", description = "Позволяет удалить направление в бд")
+    void deleteDestination(@PathVariable @Parameter(description = "Идентификатор направления") long id);
+
+    @GetMapping("/id/{id}")
     @Operation(summary = "Получение направления по id", description = "Позволяет получить направление по id")
     DestinationDto getDestinationById(@PathVariable @Parameter(description = "Идентификатор направления") long id);
 

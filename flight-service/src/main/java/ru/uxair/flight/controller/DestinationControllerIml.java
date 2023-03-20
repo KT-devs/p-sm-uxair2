@@ -36,6 +36,12 @@ public class DestinationControllerIml implements DestinationController {
     }
 
     @Override
+    public void deleteDestination(long id) {
+        log.info("delete destination");
+        destinationService.deleteDestination(id);
+    }
+
+    @Override
     public DestinationDto getDestinationById(long id) {
         log.info("get destination by id");
         return destinationService.getDestinationById(id);

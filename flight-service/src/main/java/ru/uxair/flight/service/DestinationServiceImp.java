@@ -47,6 +47,12 @@ public class DestinationServiceImp implements DestinationService {
     }
 
     @Override
+    @Transactional
+    public void deleteDestination(long id) {
+        destinationRepository.deleteById(id);
+    }
+
+    @Override
     @Transactional(readOnly = true)
     public DestinationDto getDestinationById(long id) {
         return destinationMapping.mapToDestinationDto(destinationRepository.getReferenceById(id));
