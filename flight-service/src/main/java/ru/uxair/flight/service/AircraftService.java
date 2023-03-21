@@ -8,11 +8,11 @@ public interface AircraftService {
 
     void saveAircraft(AircraftDto aircraftDto);
 
-    void updateAircraft(long id, AircraftDto aircraftDto);
+    void updateAircraft(long id, AircraftDto aircraftDtoUpate);
 
     void deleteAircraft(long id);
 
     AircraftDto getAircraftById(long id);
 
-    List<AircraftDto> getAllDestination();
+    List<AircraftDto> getAllAircraft();
 }
