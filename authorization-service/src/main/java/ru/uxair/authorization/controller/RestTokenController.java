@@ -5,6 +5,9 @@ import com.auth0.jwt.JWTVerifier;
 import com.auth0.jwt.algorithms.Algorithm;
 import com.auth0.jwt.interfaces.DecodedJWT;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
+import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.env.Environment;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -28,6 +31,8 @@ import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
 // Контроллер для обновления токена авторизации не используя заново аутентификацию
 @RestController
 @RequestMapping("/api/token")
+@Tag(name = "Обновление JWT токена", description = "Взаимодействует с обновлением JWT токена")
+@Log4j2
 public class RestTokenController {
     private final Environment environment;
     private final UserService userService;
@@ -40,9 +45,10 @@ public class RestTokenController {
 
     // Получить новый токен access_token используя для этого действующий refresh_token
     @GetMapping("/refresh")
+    @Operation(summary = "Обновить JWT токен с помощью refresh_token", description = "Позволяет обновить JWT токен с помощью refresh_token")
     public void refreshToken(HttpServletRequest request, HttpServletResponse response) throws IOException {
+        log.info("Token controller, method refreshToken");
         String authorizationHeader = request.getHeader("Authorization");
-
         if (authorizationHeader != null && authorizationHeader.startsWith("Bearer ")) {
             try {
                 String refresh_token = authorizationHeader.substring(7);
@@ -64,6 +70,7 @@ public class RestTokenController {
                 response.setContentType(APPLICATION_JSON_VALUE);
                 new ObjectMapper().writeValue(response.getOutputStream(), tokens);
             } catch (Exception e) {
+                log.error("Error {} token controller, method refresh token", e.getMessage());
                 response.setHeader("error", e.getMessage());
                 response.setStatus(FORBIDDEN.value());
                 Map<String, String> error = new HashMap<>();
