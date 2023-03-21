@@ -1,0 +1,23 @@
+spring:
+  datasource:
+    url: jdbc:postgresql://localhost:5432/airline_db
+    username: postgres
+    password: root
+#  liquibase:
+#    change-log: classpath:db.changelog-master.xml;
+#    url: jdbc:postgresql://localhost:5432/airline_db
+#    user: postgres
+#    password: root
+  jpa:
+    properties:
+      hibernate:
+        hbm2ddl:
+          auto: create-drop
+        show_sql: true
+  main:
+    allow-circular-references: true
+
+
+jwt:
+  token:
+    secret: 4D635166546A576E5A7234753778214125442A472D4A614E645267556B587032
