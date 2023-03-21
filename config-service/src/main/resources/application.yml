@@ -12,7 +12,7 @@ spring:
         service-id: config-server
       server:
         native:
-          search-locations: classpath:/config/{application}/{profile}
+          search-locations: classpath:/config/{application}/{profile}, classpath:/config/application.yml
           #Настройки если файлы конфигурации хранятся на git
           #git:
           # uri: https://github.com/
