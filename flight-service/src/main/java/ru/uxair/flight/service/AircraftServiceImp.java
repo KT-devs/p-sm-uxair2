@@ -30,13 +30,12 @@ public class AircraftServiceImp implements AircraftService {
     public void updateAircraft(long id, AircraftDto aircraftDtoUpate) {
         Aircraft aircraft = aircraftRepository.getReferenceById(id);
         Aircraft aircraftUpdate = aircraftMapper.mapToAircraftEntity(aircraftDtoUpate);
-        aircraft.setId(aircraftUpdate.getId());
         aircraft.setBoardNumber(aircraftUpdate.getBoardNumber());
         aircraft.setStamp(aircraftUpdate.getStamp());
-//        aircraft.setICAOCode(aircraftUpdate.getICAOCode());
+        aircraft.setICAOCode(aircraftUpdate.getICAOCode());
         aircraft.setYearOfRelease(aircraftUpdate.getYearOfRelease());
-//        aircraft.setSeats(aircraftUpdate.getSeats());
-
+        aircraft.setSeats(aircraftUpdate.getSeats());
+        aircraftRepository.save(aircraft);
     }
 
     public void deleteAircraft(long id) {

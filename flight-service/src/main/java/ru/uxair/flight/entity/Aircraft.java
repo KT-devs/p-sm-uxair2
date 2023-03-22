@@ -24,9 +24,12 @@ public class Aircraft {
 //    @OneToOne(cascade = CascadeType.ALL)
 //    @JoinColumn(name = "ICAOCode", referencedColumnName = "ICAOCode")
 //    private AircraftType ICAOCode;
+    @Column(name = "ICAO_code")
+    private String ICAOCode;
     @Column(name = "year_of_release")
     private int yearOfRelease;
 //    @Column(name = "seats") TO DO
 //    @OneToMany(mappedBy = "aircraftId")
 //    private Set<Seat> seats;
+    private String seats;
 }

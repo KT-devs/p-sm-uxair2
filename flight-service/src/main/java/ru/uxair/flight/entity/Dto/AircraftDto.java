@@ -14,8 +14,8 @@ public class AircraftDto {
     private long id;
     private int boardNumber;
     private String stamp;
-//    private AircraftType ICAOCode;
+    private String ICAOCode; //DO TO AircraftType
     private int yearOfRelease;
-//    private Set<Seat> seats;
+    private String seats; // TO DO Set<Seat>
 
 }

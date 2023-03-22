@@ -1,9 +1,11 @@
 package ru.uxair.flight.util.mapper;
 
 import org.modelmapper.ModelMapper;
+import org.springframework.stereotype.Service;
 import ru.uxair.flight.entity.Aircraft;
 import ru.uxair.flight.entity.Dto.AircraftDto;
 
+@Service
 public class AircraftMapperImp implements AircraftMapper{
 
     @Override
