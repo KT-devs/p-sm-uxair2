@@ -15,7 +15,7 @@ spring:
         service-id: config-server # Включает обноружение сервиса по id
       server:
         native:
-          search-locations: classpath:/config/{profile}{application}, classpath:/config/{profile}
+          search-locations: classpath:/config/{profile}
           #Настройки если файлы конфигурации хранятся на git
           #git:
           # uri: https://github.com/
