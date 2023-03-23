@@ -2,9 +2,9 @@ server:
   port: 9090
 spring:
   datasource:
-    url: jdbc:postgresql://localhost:5432/
-    username: postgres
-    password: 44914491
+    url: jdbc:postgresql://localhost:5432/airline_db
+    username:
+    password:
     driver-class-name: org.postgresql.Driver
   jpa:
     database: POSTGRESQL
