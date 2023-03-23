@@ -5,9 +5,12 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import ru.uxair.flight.entity.Dto.ErrorResponseDto;
-import org.springframework.dao.EmptyResultDataAccessException;
+import javax.validation.ConstraintViolation;
+import javax.validation.ConstraintViolationException;
 import javax.persistence.EntityNotFoundException;
-import java.sql.SQLException;
+import org.springframework.dao.EmptyResultDataAccessException;
+import java.util.List;
+import java.util.stream.Collectors;
 
 @ControllerAdvice
 public class FlightExceptionHandler extends AbstractExceptionHandler{
@@ -22,8 +25,12 @@ public class FlightExceptionHandler extends AbstractExceptionHandler{
         return buildErrorResponse(e, HttpStatus.NOT_FOUND);
     }
 
-    @ExceptionHandler(SQLException.class)
-    public ResponseEntity<ErrorResponseDto> queryExceptionHandler(SQLException e) {
-        return buildErrorResponse(e, HttpStatus.BAD_REQUEST);
+    @ExceptionHandler(ConstraintViolationException.class)
+    public ResponseEntity<ErrorResponseDto> notFoundExceptionHandler(ConstraintViolationException e) {
+        List<String> errorMessages = e.getConstraintViolations()
+                .stream()
+                .map(ConstraintViolation::getMessage)
+                .collect(Collectors.toList());
+        return buildErrorResponse(e, errorMessages.toString(), HttpStatus.BAD_REQUEST);
     }
 }
