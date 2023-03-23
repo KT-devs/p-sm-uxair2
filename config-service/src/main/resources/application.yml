@@ -18,8 +18,8 @@ spring:
           search-locations: classpath:/config/{profile}
           #Настройки если файлы конфигурации хранятся на git
           #git:
-          # uri: https://github.com/
-          #searchPaths:
+          # uri: https://github.com/KT-devs/p-sm-uxair2/.....
+          #searchPaths:{profile}
 #Включить все эндпоинты актуатора
 management:
   endpoints:
