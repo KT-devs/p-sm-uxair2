@@ -4,28 +4,36 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import ru.uxair.flight.entity.Dto.TicketDto;
 import ru.uxair.flight.entity.Ticket;
 import ru.uxair.flight.service.TicketService;
 import ru.uxair.flight.util.exceptions.TicketNotFoundException;
+import ru.uxair.flight.util.mapper.TicketMapper;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 
 @RestController
 public class TicketControllerImpl implements TicketController {
     private final TicketService ticketService;
+    private final TicketMapper ticketMapper;
 
     @Autowired
-    public TicketControllerImpl(TicketService ticketService) {
+    public TicketControllerImpl(TicketService ticketService, TicketMapper ticketMapper) {
         this.ticketService = ticketService;
+        this.ticketMapper = ticketMapper;
     }
 
-    public List<Ticket> getAllTickets() {
-        List<Ticket> tickets = ticketService.getAllTickets();
+    public ResponseEntity<List<TicketDto>> getAllTickets() {
+        List<TicketDto> tickets = ticketService.getAllTickets().
+                stream()
+                .map(ticketMapper::convertToTicketDto)
+                .collect(Collectors.toList());
         if (tickets.isEmpty()) {
             throw new TicketNotFoundException("Билетов нет");
         }
-        return tickets;
+        return new ResponseEntity<>(tickets, HttpStatus.OK);
     }
 
     @Override
@@ -56,8 +64,11 @@ public class TicketControllerImpl implements TicketController {
     }
 
     @Override
-    public List<Ticket> getTicketsFareMinToMax() {
-        List<Ticket> tickets = ticketService.getTicketsFareMinToMax();
+    public List<TicketDto> getTicketsFareMinToMax() {
+        List<TicketDto> tickets = ticketService.getTicketsFareMinToMax().
+                stream()
+                .map(ticketMapper::convertToTicketDto)
+                .collect(Collectors.toList());
         if (tickets.isEmpty()) {
             throw new TicketNotFoundException("Билетов нет");
         }
@@ -79,15 +90,8 @@ public class TicketControllerImpl implements TicketController {
     }
 
     @Override
-    public ResponseEntity<String> saveTicket(@RequestBody Ticket ticket) {
-        ResponseEntity<String> entity;
-        try {
-            ticketService.saveTicket(ticket);
-            entity = new ResponseEntity<>("Пользователь сохранен", HttpStatus.OK);
-        } catch (RuntimeException e) {
-            entity = new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
-        }
-        return entity;
+    public ResponseEntity<Ticket> saveTicket(@RequestBody TicketDto ticketDto) {
+            return new ResponseEntity<>(ticketService.saveTicket(ticketMapper.convertToTicketEntity(ticketDto)), HttpStatus.OK);
     }
 
     @Override

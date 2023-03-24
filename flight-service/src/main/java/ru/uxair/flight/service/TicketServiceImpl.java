@@ -2,6 +2,7 @@ package ru.uxair.flight.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import ru.uxair.flight.entity.Dto.TicketDto;
 import ru.uxair.flight.entity.Ticket;
 import ru.uxair.flight.repository.TicketRepository;
 import ru.uxair.flight.util.exceptions.TicketNotFoundException;
@@ -52,8 +53,9 @@ public class TicketServiceImpl implements TicketService{
     }
 
     @Override
-    public void saveTicket(Ticket ticket) {
+    public Ticket saveTicket(Ticket ticket) {
         ticketRepository.save(ticket);
+        return ticket;
     }
 
     @Override
