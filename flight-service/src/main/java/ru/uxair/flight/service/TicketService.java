@@ -13,7 +13,7 @@ public interface TicketService {
     List<Ticket> getTicketsFareMinToMax();
     List<Ticket> getTicketsFareMaxToMin();
     Ticket findTicketById(Long id);
-    void saveTicket(Ticket ticket);
+    Ticket saveTicket(Ticket ticket);
     void deleteTicket(Long id);
 
 }

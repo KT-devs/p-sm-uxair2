@@ -4,6 +4,7 @@ import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import ru.uxair.flight.entity.Dto.TicketDto;
 import ru.uxair.flight.entity.Ticket;
 
 import java.util.List;
@@ -13,7 +14,7 @@ public interface TicketController {
     @Operation(summary = "Список ввсех билетов",
             description = "Получить список всех билетов из БД")
     @GetMapping
-    List<Ticket> getAllTickets();
+    ResponseEntity<List<TicketDto>> getAllTickets();
     @Operation(summary = "Список билетов по категории",
             description = "Список билетов по категории (бизнес, эконом и т.д...)")
     @GetMapping("/category/{category}")
@@ -29,7 +30,7 @@ public interface TicketController {
     @Operation(summary = "Список билетов сортированный МИН-МАКС стоимость",
             description = "Получить список билетов отсортированный от минимальной к максимальной цене")
     @GetMapping("/sortMinToMax")
-    List<Ticket> getTicketsFareMinToMax();
+    List<TicketDto> getTicketsFareMinToMax();
     @Operation(summary = "Список билетов сортированный МАКС-МИН стоимость",
             description = "Получить список билетов отсортированный от максимальной к мнимальной цене")
     @GetMapping("/sortMaxToMin")
@@ -39,7 +40,7 @@ public interface TicketController {
     Ticket findTicketById(@PathVariable Long id);
     @Operation(summary = "Сохранить билет в БД")
     @PostMapping("/save")
-    ResponseEntity<String> saveTicket(@RequestBody Ticket ticket);
+    ResponseEntity<Ticket> saveTicket(@RequestBody TicketDto ticketDto);
     @Operation(summary = "Удалить билет из БД")
     @DeleteMapping("/{id}")
     void deleteTicket(@PathVariable Long id);
