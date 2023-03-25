@@ -18,31 +18,31 @@ public interface TicketController {
     @Operation(summary = "Список билетов по категории",
             description = "Список билетов по категории (бизнес, эконом и т.д...)")
     @GetMapping("/category/{category}")
-    List<Ticket> getTicketsBySeatCategory(@PathVariable String category);
+    ResponseEntity<List<TicketDto>> getTicketsBySeatCategory(@PathVariable String category);
     @Operation(summary = "Получить билеты по пассажиру",
             description = "Получить все билеты определенного пассажира")
     @GetMapping("/passenger/{passenger}")
-    List<Ticket> getTicketByPassenger(@PathVariable String passenger);
+    ResponseEntity<List<TicketDto>> getTicketByPassenger(@PathVariable String passenger);
     @Operation(summary = "Билеты по рейсу",
             description = "Получить все билеты определенного рейса")
     @GetMapping("/flight/{flight}")
-    List<Ticket> getTicketByFlight(@PathVariable String flight);
+    ResponseEntity<List<TicketDto>> getTicketByFlight(@PathVariable String flight);
     @Operation(summary = "Список билетов сортированный МИН-МАКС стоимость",
             description = "Получить список билетов отсортированный от минимальной к максимальной цене")
     @GetMapping("/sortMinToMax")
-    List<TicketDto> getTicketsFareMinToMax();
+    ResponseEntity<List<TicketDto>> getTicketsFareMinToMax();
     @Operation(summary = "Список билетов сортированный МАКС-МИН стоимость",
             description = "Получить список билетов отсортированный от максимальной к мнимальной цене")
     @GetMapping("/sortMaxToMin")
-    List<Ticket> getTicketsFareMaxToMin();
+    ResponseEntity<List<TicketDto>> getTicketsFareMaxToMin();
     @Operation(summary = "Поиск билета по ID")
     @GetMapping("/{id}")
-    Ticket findTicketById(@PathVariable Long id);
+    ResponseEntity<TicketDto> findTicketById(@PathVariable Long id);
     @Operation(summary = "Сохранить билет в БД")
     @PostMapping("/save")
-    ResponseEntity<Ticket> saveTicket(@RequestBody TicketDto ticketDto);
+    ResponseEntity<TicketDto> saveTicket(@RequestBody TicketDto ticketDto);
     @Operation(summary = "Удалить билет из БД")
     @DeleteMapping("/{id}")
-    void deleteTicket(@PathVariable Long id);
+    ResponseEntity<String> deleteTicket(@PathVariable Long id);
 
 }
