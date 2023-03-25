@@ -5,7 +5,6 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import ru.uxair.flight.entity.Dto.TicketDto;
-import ru.uxair.flight.entity.Ticket;
 
 import java.util.List;
 @Tag(name = "Билет", description = "API управления билетами")
