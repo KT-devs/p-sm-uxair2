@@ -36,7 +36,7 @@ public interface TicketController {
     ResponseEntity<List<TicketDto>> getTicketsFareMaxToMin();
     @Operation(summary = "Поиск билета по ID")
     @GetMapping("/{id}")
-    ResponseEntity<TicketDto> findTicketById(@PathVariable Long id);
+    ResponseEntity<?> findTicketById(@PathVariable Long id);
     @Operation(summary = "Сохранить билет в БД")
     @PostMapping("/save")
     ResponseEntity<TicketDto> saveTicket(@RequestBody TicketDto ticketDto);
