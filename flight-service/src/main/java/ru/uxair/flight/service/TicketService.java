@@ -1,7 +1,6 @@
 package ru.uxair.flight.service;
-
 import ru.uxair.flight.entity.Ticket;
-
+import javax.transaction.Transactional;
 import java.util.List;
 
 
@@ -13,7 +12,10 @@ public interface TicketService {
     List<Ticket> getTicketsFareMinToMax();
     List<Ticket> getTicketsFareMaxToMin();
     Ticket findTicketById(Long id);
-    Ticket saveTicket(Ticket ticket);
+    @Transactional
+    void saveTicket(Ticket ticket);
+    @Transactional
     void deleteTicket(Long id);
+
 
 }

@@ -53,9 +53,8 @@ public class TicketServiceImpl implements TicketService{
     }
 
     @Override
-    public Ticket saveTicket(Ticket ticket) {
+    public void saveTicket(Ticket ticket) {
         ticketRepository.save(ticket);
-        return ticket;
     }
 
     @Override

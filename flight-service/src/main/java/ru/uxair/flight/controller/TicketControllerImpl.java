@@ -99,7 +99,7 @@ public class TicketControllerImpl implements TicketController {
     public ResponseEntity<TicketDto> saveTicket(@RequestBody TicketDto ticketDto) {
         log.info("save ticket");
         ticketService.saveTicket(ticketMapper.convertToTicketEntity(ticketDto));
-            return new ResponseEntity<>(ticketDto, HttpStatus.OK);
+            return new ResponseEntity<>(ticketDto, HttpStatus.CREATED);
     }
 
     @Override
@@ -111,5 +111,12 @@ public class TicketControllerImpl implements TicketController {
             return new ResponseEntity<>(e.getMessage(), HttpStatus.NOT_FOUND);
         }
         return new ResponseEntity<>("Билет с id "+id+" был удален", HttpStatus.OK);
+    }
+
+    @Override
+    public ResponseEntity<TicketDto> updateTicket(TicketDto ticketDto) {
+        log.info("update ticket");
+        ticketService.saveTicket(ticketMapper.convertToTicketEntity(ticketDto));
+        return new ResponseEntity<>(ticketDto, HttpStatus.OK);
     }
 }
