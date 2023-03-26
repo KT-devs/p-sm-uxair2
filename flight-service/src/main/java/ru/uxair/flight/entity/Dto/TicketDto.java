@@ -16,7 +16,7 @@ public class TicketDto {
 
     @Null(groups = MarkerDto.OnCreate.class)
     @NotNull(groups = MarkerDto.OnUpdate.class)
-    @Schema(description = "Идентификатор")
+    @Schema(accessMode = Schema.AccessMode.READ_ONLY)
     private Long id;
     @NotNull
     @Schema(description = "Пассажир")
