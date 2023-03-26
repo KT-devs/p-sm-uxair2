@@ -1,22 +1,21 @@
 package ru.uxair.flight.entity.Dto;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import ru.uxair.flight.util.MarkerDto;
 
-import javax.validation.constraints.NotEmpty;
-import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Null;
+import javax.validation.constraints.*;
 
 @Schema(description = "Сущность билета")
 @NoArgsConstructor
 @AllArgsConstructor
 @Data
 public class TicketDto {
-    @Null
+
+    @Null(groups = MarkerDto.OnCreate.class)
+    @NotNull(groups = MarkerDto.OnUpdate.class)
     @Schema(description = "Идентификатор")
     private Long id;
     @NotNull
@@ -25,16 +24,17 @@ public class TicketDto {
     @NotNull
     @Schema(description = "Бронирование")
     private String booking;
-    @NotNull
+    @NotEmpty
     @Schema(description = "Категория места в самолете (бизнес, эконом и т.д...)")
     private String seatCategory;
-    @NotNull
+    @NotBlank
     @Schema(description = "Дополнительные сервисы на рейсе")
     private String inFlightServices;
     @NotNull
+    @PositiveOrZero
     @Schema(description = "Стоимость билета")
     private float fare;
-    @NotNull
+    @NotBlank
     @Schema(description = "Валюта")
     private String currency;
     @NotNull
