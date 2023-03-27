@@ -51,7 +51,7 @@ public interface TicketController {
             @ApiResponse(responseCode = "400", description = "Invalid input"),
             @ApiResponse(responseCode = "409", description = "Object already exists") })
     @Operation(summary = "Сохранить билет в БД")
-    @PostMapping("/save")
+    @PostMapping
     @Validated({MarkerDto.OnCreate.class})
     ResponseEntity<TicketDto> saveTicket(@Valid @RequestBody TicketDto ticketDto);
     @ApiResponses(value = {
@@ -61,7 +61,7 @@ public interface TicketController {
     @DeleteMapping("/{id}")
     ResponseEntity<String> deleteTicket(@PathVariable Long id);
     @Operation(summary = "Изменить билет")
-    @PutMapping("/update")
+    @PutMapping
     @Validated({MarkerDto.OnUpdate.class})
     ResponseEntity<TicketDto> updateTicket (@Valid @RequestBody TicketDto ticketDto);
 }
