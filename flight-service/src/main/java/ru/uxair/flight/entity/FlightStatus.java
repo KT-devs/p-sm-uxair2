@@ -1,7 +1,7 @@
 package ru.uxair.flight.entity;
 
 public enum FlightStatus {
-    SCHEDULED("По расписанию"), ONTIME("Вовремя"), DELAYED("С задержкой"), DEPARTED("Отбыл"),
+    SCHEDULED("Запланирован"), ONTIME("По расписанию"), DELAYED("Задержан"), DEPARTED("Вылетел"),
     ARRIVED("Прибыл"), CANCELED("Отменен");
 
     private String value;
