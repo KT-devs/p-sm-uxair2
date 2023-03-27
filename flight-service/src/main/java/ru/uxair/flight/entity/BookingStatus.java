@@ -1,7 +1,7 @@
 package ru.uxair.flight.entity;
 
 public enum BookingStatus {
-    RESERVED("Зарезервировано"), PAID("Оплачено"), CANCELED("Отменено");
+    RESERVED("Зарезервирован"), PAID("Оплачен"), CANCELED("Отменен");
 
     private String value;
 
