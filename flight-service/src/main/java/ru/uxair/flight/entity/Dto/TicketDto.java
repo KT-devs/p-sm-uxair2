@@ -1,5 +1,6 @@
 package ru.uxair.flight.entity.Dto;
 
+
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -16,7 +17,7 @@ public class TicketDto {
 
     @Null(groups = MarkerDto.OnCreate.class)
     @NotNull(groups = MarkerDto.OnUpdate.class)
-    @Schema(accessMode = Schema.AccessMode.READ_ONLY)
+//    @Schema(accessMode = Schema.AccessMode.READ_ONLY)
     private Long id;
     @NotNull
     @Schema(description = "Пассажир")
@@ -34,7 +35,7 @@ public class TicketDto {
     @PositiveOrZero
     @Schema(description = "Стоимость билета")
     private float fare;
-    @NotBlank
+    @NotNull
     @Schema(description = "Валюта")
     private String currency;
     @NotNull
