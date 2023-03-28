@@ -34,7 +34,7 @@ public class SpringBootSecurityDemoApplication {
             userService.saveRole(ROLE_CUSTOMER);
 
             userService.saveUser(new User("admin@mail.ru", "admin", "adminFirst", "adminLast",
-                    Arrays.asList(ROLE_ADMIN, ROLE_MANAGER)));
+                    Arrays.asList(ROLE_ADMIN)));
             userService.saveUser(new User("user@mail.ru", "user", "userFirst", "userLast",
                     Arrays.asList(ROLE_CUSTOMER)));
 

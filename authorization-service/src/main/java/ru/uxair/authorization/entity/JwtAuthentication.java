@@ -5,7 +5,9 @@ import lombok.Setter;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
 
+import java.util.ArrayList;
 import java.util.Collection;
+import java.util.List;
 import java.util.Set;
 
 @Getter
@@ -15,7 +17,7 @@ public class JwtAuthentication implements Authentication {
     private boolean authenticated;
     private String username;
     private String firstName;
-    private Set<Role> roles;
+    private List<Role> roles = new ArrayList<>();
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() { return roles; }

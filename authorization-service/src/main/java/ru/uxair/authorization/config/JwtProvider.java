@@ -56,6 +56,7 @@ public class JwtProvider {
     }
 
     public boolean validateAccessToken(@NonNull String accessToken) {
+        System.out.println("method validateAccessToken" + accessToken + jwtAccessSecret);
         return validateToken(accessToken, jwtAccessSecret);
     }
 

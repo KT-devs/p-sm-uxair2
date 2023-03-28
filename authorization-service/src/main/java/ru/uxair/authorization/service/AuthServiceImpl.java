@@ -28,7 +28,8 @@ public class AuthServiceImpl implements AuthService{
     public JwtResponse username(@NonNull JwtRequest authRequest) throws AuthException {
         User user = userService.getByUsername(authRequest.getUsername())
                 .orElseThrow(() -> new AuthException("Пользователь не найден"));
-        if (user.getUsername().equals(authRequest.getUsername())) {
+        BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
+        if (passwordEncoder.matches(authRequest.getPassword(), user.getPassword())) {
             String accessToken = jwtProvider.generateAccessToken(user);
             String refreshToken = jwtProvider.generateRefreshToken(user);
             refreshStorage.put(user.getUsername(), refreshToken);

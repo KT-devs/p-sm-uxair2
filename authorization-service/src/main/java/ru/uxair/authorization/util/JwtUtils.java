@@ -15,8 +15,8 @@ import java.util.stream.Collectors;
 public final class JwtUtils {
 
     public static JwtAuthentication generate(Claims claims) {
-        final JwtAuthentication jwtInfoToken = new JwtAuthentication();
-        jwtInfoToken.setRoles((Set<Role>) claims.get("roles", List.class));
+        JwtAuthentication jwtInfoToken = new JwtAuthentication();
+        jwtInfoToken.setRoles(claims.get("roles", List.class));
         jwtInfoToken.setFirstName(claims.get("firstName", String.class));
         jwtInfoToken.setUsername(claims.getSubject());
         return jwtInfoToken;

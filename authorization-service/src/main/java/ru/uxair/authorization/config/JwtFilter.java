@@ -29,18 +29,22 @@ public class JwtFilter extends GenericFilterBean {
     @Override
     public void doFilter(ServletRequest request, ServletResponse response, FilterChain fc)
             throws IOException, ServletException {
-        final String token = getTokenFromRequest((HttpServletRequest) request);
+        String token = getTokenFromRequest((HttpServletRequest) request);
+        System.out.println("Ошибка до иф + " + token);
         if (token != null && jwtProvider.validateAccessToken(token)) {
-            final Claims claims = jwtProvider.getAccessClaims(token);
-            final JwtAuthentication jwtInfoToken = JwtUtils.generate(claims);
+            Claims claims = jwtProvider.getAccessClaims(token);
+            JwtAuthentication jwtInfoToken = JwtUtils.generate(claims);
             jwtInfoToken.setAuthenticated(true);
+            System.out.println("Ошибка в иф после аутентикейтед тру");
             SecurityContextHolder.getContext().setAuthentication(jwtInfoToken);
+            System.out.println("Ошибка в самом конце" + jwtInfoToken.getUsername() +
+                    "аутентификация" + jwtInfoToken.isAuthenticated() + "roles" + jwtInfoToken.getRoles());
         }
         fc.doFilter(request, response);
     }
 
     private String getTokenFromRequest(HttpServletRequest request) {
-        final String bearer = request.getHeader(AUTHORIZATION);
+        String bearer = request.getHeader(AUTHORIZATION);
         if (StringUtils.hasText(bearer) && bearer.startsWith("Bearer ")) {
             return bearer.substring(7);
         }
