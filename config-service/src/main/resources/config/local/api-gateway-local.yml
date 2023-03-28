@@ -1,0 +1,25 @@
+server:
+  port: 0 #Сервер порт 0 - для того, что бы eureka server автоматически выдавал порт для сервиса.
+eureka:
+  instance:
+    preferIpAddress: true # Разрешает получения ip адреса
+  client:
+    registerWithEureka: true # Разрешает сервису регистрацию в eureka server как клиент
+    fetchRegistry: true # Разрешает получения регистра сервисов из eureka server
+    serviceUrl:
+      defaultZone: http://localhost:8761/eureka/
+
+spring:
+  cloud:
+    gateway:
+      discovery.locator:
+        enabled: true # Разрешает gateway автаматически определять маршруты до сервисов
+        lowerCaseServiceId: true
+logging:
+  level:
+    ROOT: INFO
+management:           #
+  endpoints:          #
+    web:              #   Включает отображение всех endpoint для актуатора
+      exposure:       #
+        include: "*"  #

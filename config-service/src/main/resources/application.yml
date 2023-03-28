@@ -1,0 +1,31 @@
+server:
+  port: 8071
+spring:
+  application:
+    name: config-server
+  profiles:
+    active:
+      - native # native, git - способ хранения файлов конфигурации
+
+  #Указываем место где хрятся файлы конфигурации сервисов
+  cloud:
+    config:
+      discovery:
+        enabled: true
+        service-id: config-server # Включает обноружение сервиса по id
+      server:
+        native:
+          search-locations: classpath:/config/{profile}
+          #Настройки если файлы конфигурации хранятся на git
+          #git:
+          # uri: https://github.com/KT-devs/p-sm-uxair2/.....
+          #searchPaths:{profile}
+#Включить все эндпоинты актуатора
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"
+logging:
+  level:
+    root: info
