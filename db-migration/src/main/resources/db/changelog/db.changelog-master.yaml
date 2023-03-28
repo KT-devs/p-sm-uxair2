@@ -6,4 +6,4 @@ databaseChangeLog: #параметр в котором находятся миг
   - include: # список активных миграций
       file: db/changelog/changeset/seat-table_changeset.yaml  # путь к файлу миграции использовать как шаблон для своего chageset вашей таблицы
   - include:
-      file: crate-destination-changeset.yaml
+      file: create-destination-changeset.yaml
