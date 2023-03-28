@@ -22,8 +22,9 @@ public interface DestinationController {
 
     @Operation(summary = "Добавление направления", description = "Позволяет добавить направление в бд")
     @ApiResponses(value = {
-            @ApiResponse(responseCode = "200", description = "Успешно",
-                    content = @Content),
+            @ApiResponse(responseCode = "201", description = "Успешно",
+                    content = {@Content(mediaType = "application/json",
+                            schema = @Schema(implementation = DestinationDto.class))}),
             @ApiResponse(responseCode = "400", description = "Неверные данные",
                     content = {@Content(mediaType = "application/json",
                             schema = @Schema(implementation = ErrorResponseDto.class))}),
@@ -36,7 +37,8 @@ public interface DestinationController {
     @Operation(summary = "Обновление направления", description = "Позволяет обновить направление в бд")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Успешно",
-                    content = @Content),
+                    content = {@Content(mediaType = "application/json",
+                            schema = @Schema(implementation = DestinationDto.class))}),
             @ApiResponse(responseCode = "400", description = "Неверные данные",
                     content = {@Content(mediaType = "application/json",
                             schema = @Schema(implementation = ErrorResponseDto.class))}),
@@ -52,7 +54,8 @@ public interface DestinationController {
     @Operation(summary = "Удаление направления", description = "Позволяет удалить направление в бд")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Успешно",
-                    content = @Content),
+                    content = {@Content(mediaType = "application/json",
+                            schema = @Schema(implementation = DestinationDto.class))}),
             @ApiResponse(responseCode = "404", description = "Объект не найден",
                     content = {@Content(mediaType = "application/json",
                             schema = @Schema(implementation = ErrorResponseDto.class))}),
