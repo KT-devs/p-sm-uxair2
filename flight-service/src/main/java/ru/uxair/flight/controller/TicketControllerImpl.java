@@ -2,7 +2,6 @@ package ru.uxair.flight.controller;
 
 import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -30,7 +29,7 @@ public class TicketControllerImpl implements TicketController {
         log.info("get list all tickets");
         List<TicketDto> tickets = ticketMapper.convertToListDto(ticketService.getAllTickets());
         if (tickets.isEmpty()) {
-            return new ResponseEntity<>(tickets, HttpStatus.NOT_FOUND);
+            throw new NotFoundException("Список пустой");
         }
         return new ResponseEntity<>(tickets, HttpStatus.OK);
     }
@@ -40,7 +39,7 @@ public class TicketControllerImpl implements TicketController {
         log.info("get list tickets by seat category");
         List<TicketDto> tickets = ticketMapper.convertToListDto(ticketService.getTicketsBySeatCategory(category));
         if (tickets.isEmpty()) {
-            return new ResponseEntity<>(tickets, HttpStatus.NOT_FOUND);
+            throw new NotFoundException("Список пустой");
         }
         return new ResponseEntity<>(tickets, HttpStatus.OK);
     }
@@ -50,7 +49,7 @@ public class TicketControllerImpl implements TicketController {
         log.info("get list tickets by passenger");
         List<TicketDto> tickets = ticketMapper.convertToListDto(ticketService.getTicketByPassenger(passenger));
         if (tickets.isEmpty()) {
-            return new ResponseEntity<>(tickets, HttpStatus.NOT_FOUND);
+            throw new NotFoundException("Список пустой");
         }
         return new ResponseEntity<>(tickets, HttpStatus.OK);
     }
@@ -60,7 +59,7 @@ public class TicketControllerImpl implements TicketController {
         log.info("get list tickets by flight");
         List<TicketDto> tickets = ticketMapper.convertToListDto(ticketService.getTicketsByFlight(flight));
         if (tickets.isEmpty()) {
-            return new ResponseEntity<>(tickets, HttpStatus.NOT_FOUND);
+            throw new NotFoundException("Список пустой");
         }
         return new ResponseEntity<>(tickets, HttpStatus.OK);
     }
@@ -70,7 +69,7 @@ public class TicketControllerImpl implements TicketController {
         log.info("get list tickets by fare (min to max)");
         List<TicketDto> tickets = ticketMapper.convertToListDto(ticketService.getTicketsFareMinToMax());
         if (tickets.isEmpty()) {
-            return new ResponseEntity<>(tickets, HttpStatus.NOT_FOUND);
+            throw new NotFoundException("Список пустой");
         }
         return new ResponseEntity<>(tickets, HttpStatus.OK);
     }
@@ -80,7 +79,7 @@ public class TicketControllerImpl implements TicketController {
         log.info("get list tickets by fare (max to min)");
         List<TicketDto> tickets = ticketMapper.convertToListDto(ticketService.getTicketsFareMaxToMin());
         if (tickets.isEmpty()) {
-            return new ResponseEntity<>(tickets, HttpStatus.NOT_FOUND);
+            throw new NotFoundException("Список пустой");
         }
         return new ResponseEntity<>(tickets, HttpStatus.OK);
     }
@@ -88,28 +87,20 @@ public class TicketControllerImpl implements TicketController {
     @Override
     public ResponseEntity<?> findTicketById(@PathVariable Long id) {
         log.info("get ticket by id");
-        try {
-            return new ResponseEntity<>(ticketMapper.convertToTicketDto(ticketService.findTicketById(id)), HttpStatus.OK);
-        } catch (NotFoundException e){
-            return new ResponseEntity<>(e.getMessage(), HttpStatus.NOT_FOUND);
-        }
+        return new ResponseEntity<>(ticketMapper.convertToTicketDto(ticketService.findTicketById(id)), HttpStatus.OK);
     }
 
     @Override
     public ResponseEntity<TicketDto> saveTicket(@RequestBody TicketDto ticketDto) {
         log.info("save ticket");
         ticketService.saveTicket(ticketMapper.convertToTicketEntity(ticketDto));
-            return new ResponseEntity<>(ticketDto, HttpStatus.CREATED);
+        return new ResponseEntity<>(ticketDto, HttpStatus.CREATED);
     }
 
     @Override
     public ResponseEntity<String> deleteTicket(@PathVariable Long id) {
         log.info("delete ticket");
-        try {
-            ticketService.deleteTicket(id);
-        } catch (EmptyResultDataAccessException e){
-            return new ResponseEntity<>(e.getMessage(), HttpStatus.NOT_FOUND);
-        }
+        ticketService.deleteTicket(id);
         return new ResponseEntity<>("Билет с id "+id+" был удален", HttpStatus.OK);
     }
 
