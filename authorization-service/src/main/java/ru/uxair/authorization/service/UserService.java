@@ -8,12 +8,14 @@ import ru.uxair.authorization.entity.User;
 import java.util.List;
 import java.util.Optional;
 
-public interface UserService {
+public interface UserService extends UserDetailsService {
     User saveUser(User user);
 
     Role saveRole(Role role);
 
     List<User> getAll();
+
+    public List<Role> getAllRoles();
 
     User getUser(String username);
 

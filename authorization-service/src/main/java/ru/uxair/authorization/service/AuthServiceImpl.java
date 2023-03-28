@@ -4,6 +4,7 @@ import io.jsonwebtoken.Claims;
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import ru.uxair.authorization.config.JwtProvider;
 import ru.uxair.authorization.entity.JwtAuthentication;
@@ -25,11 +26,11 @@ public class AuthServiceImpl implements AuthService{
 
     @Override
     public JwtResponse username(@NonNull JwtRequest authRequest) throws AuthException {
-        final User user = userService.getByUsername(authRequest.getUsername())
+        User user = userService.getByUsername(authRequest.getUsername())
                 .orElseThrow(() -> new AuthException("Пользователь не найден"));
-        if (user.getPassword().equals(authRequest.getPassword())) {
-            final String accessToken = jwtProvider.generateAccessToken(user);
-            final String refreshToken = jwtProvider.generateRefreshToken(user);
+        if (user.getUsername().equals(authRequest.getUsername())) {
+            String accessToken = jwtProvider.generateAccessToken(user);
+            String refreshToken = jwtProvider.generateRefreshToken(user);
             refreshStorage.put(user.getUsername(), refreshToken);
             return new JwtResponse(accessToken, refreshToken);
         } else {

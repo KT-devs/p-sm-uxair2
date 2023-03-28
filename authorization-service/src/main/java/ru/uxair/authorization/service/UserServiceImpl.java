@@ -23,7 +23,7 @@ import java.util.Optional;
 
 @Service
 @Log4j2
-public class UserServiceImpl implements UserService {
+public class UserServiceImpl implements UserService, UserDetailsService {
 
     private final UserRepository userRepository;
     private final RoleRepository roleRepository;
@@ -57,6 +57,14 @@ public class UserServiceImpl implements UserService {
     public List<User> getAll() {
         log.info("Fetching all users");
         return userRepository.findAll();
+    }
+
+    //Вернуть все роли
+    @Override
+    @Transactional(readOnly = true)
+    public List<Role> getAllRoles() {
+        log.info("Fetching all roles");
+        return roleRepository.findAll();
     }
 
     //Вернуть пользователя по полю username
@@ -101,4 +109,9 @@ public class UserServiceImpl implements UserService {
     }
 
 
+    @Override
+    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+        User user = getByUsername(username).orElseThrow();
+        return user;
+    }
 }
