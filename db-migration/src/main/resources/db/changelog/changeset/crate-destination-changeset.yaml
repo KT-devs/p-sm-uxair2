@@ -1,0 +1,47 @@
+databaseChangeLog:
+  - changeSet:
+      id: create-destination
+      author: Milovantsev Vadim
+      changes:
+        - createTable:
+            tableName: destination
+            columns:
+              - column:
+                  name: id
+                  type: BIGINT
+                  autoIncrement: true
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: city
+                  type: varchar(50)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: country_name
+                  type: varchar(50)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: country_code
+                  type: int
+                  constraints:
+                    nullable: false
+              - column:
+                  name: airport_name
+                  type: varchar(50)
+                  constraints:
+                    nullable: false
+                    unique: true
+              - column:
+                  name: airport_code
+                  type: int
+                  constraints:
+                    nullable: false
+                    unique: true
+              - column:
+                  name: timezone
+                  type: varchar(9)
+                  constraints:
+                    nullable: false
