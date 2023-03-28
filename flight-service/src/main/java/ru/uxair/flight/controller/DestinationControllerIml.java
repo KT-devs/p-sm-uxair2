@@ -5,6 +5,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import ru.uxair.flight.entity.Dto.DestinationDto;
 import ru.uxair.flight.service.DestinationService;
+import ru.uxair.flight.util.exceptions.DestinationNotFoundException;
 
 import javax.persistence.EntityNotFoundException;
 import java.util.List;
@@ -50,31 +51,19 @@ public class DestinationControllerIml implements DestinationController {
     @Override
     public List<DestinationDto> getDestinationByCity(String city) {
         log.info("get destination by city");
-        List<DestinationDto> destinationDtos = destinationService.getDestinationByCity(city);
-        if (destinationDtos.isEmpty()) {
-            throw new EntityNotFoundException("Unable to find Destination with city " + city);
-        }
-        return destinationDtos;
+        return destinationService.getDestinationByCity(city);
     }
 
     @Override
     public List<DestinationDto> getDestinationByCountryName( String countryName) {
         log.info("get destination by countryName");
-        List<DestinationDto> destinationDtos = destinationService.getDestinationByCountryName(countryName);
-        if (destinationDtos.isEmpty()) {
-            throw new EntityNotFoundException("Unable to find Destination with countryName " + countryName);
-        }
-        return destinationDtos;
+        return destinationService.getDestinationByCountryName(countryName);
     }
 
     @Override
     public List<DestinationDto> getAllDestination() {
         log.info("get all destination");
-        List<DestinationDto> destinationDtos = destinationService.getAllDestination();
-        if (destinationDtos.isEmpty()) {
-            throw new EntityNotFoundException("Unable to find Destination");
-        }
-        return destinationDtos;
+        return destinationService.getAllDestination();
     }
 
 }
