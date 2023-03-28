@@ -1,0 +1,32 @@
+Liquibase представляет из себя систему управления версиями базы данных,
+в основном это касается структуры и в меньшей степени содержимого базы.
+При этом описание базы с одной стороны достаточно абстрактно и позволяет использовать
+на нижнем уровне различные СУБД
+
+пример ChangeSet:
+
+databaseChangeLog:
+  - changeSet:
+      id: create-author #текстовый идентификатор (Обязателен)
+      author: Konstantin Shibkov # автор (Обязателен)
+      changes:
+        - createTable: # создаем новую таблицу
+            tableName: author
+            columns: # объявления колонок
+              - column:
+                  name: id
+                  type: bigint
+                  autoIncrement: true
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: name
+                  type: varchar(200)
+                  constraints:
+                    nullable: false
+
+далее помощь и поддержка:
+ 1.если лень писать sql таблицу - https://wtools.io/ru/generate-sql-create-table .
+ 2 конвертор sql в yaml - https://beautifytools.com/sql-to-yaml-converter.php .
+ 3 бот гпт https://t.me/tenevoygptbot .
