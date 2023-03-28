@@ -97,7 +97,7 @@ public class UserServiceImpl implements UserService, UserDetailsService {
         log.info("Load user by username {}", username);
         User user = userRepository.findByUsername(username);
         if(user == null){
-            log.error("User nit found in DB {}", username);
+            log.error("User not found in DB {}", username);
             throw new UsernameNotFoundException("User not found in DB");
         }
         Collection<SimpleGrantedAuthority> authorities = new ArrayList<>();

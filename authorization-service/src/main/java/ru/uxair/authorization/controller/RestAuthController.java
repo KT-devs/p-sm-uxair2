@@ -17,7 +17,8 @@ import ru.uxair.authorization.entity.User;
 public class RestAuthController {
     @PostMapping ("/login")
     @Operation(summary = "Получить jwt токен с помощью логина и пароля", description = "Позволяет получить токен")
-    public ResponseEntity<HttpStatus> login(@RequestBody User user){
+    public ResponseEntity<HttpStatus> login(@PathVariable String username, @PathVariable String password){
+
         return new ResponseEntity<>(HttpStatus.OK);
     }
 }
