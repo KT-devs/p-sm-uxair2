@@ -4,17 +4,14 @@ import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import io.swagger.v3.oas.annotations.tags.Tag;
-import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
-import ru.uxair.authorization.entity.JwtAuthentication;
 import ru.uxair.authorization.entity.Role;
 import ru.uxair.authorization.entity.User;
-import ru.uxair.authorization.service.AuthService;
 import ru.uxair.authorization.service.UserService;
 
 import java.util.List;

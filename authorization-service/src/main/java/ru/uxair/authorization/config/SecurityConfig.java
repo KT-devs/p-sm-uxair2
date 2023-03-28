@@ -1,58 +1,33 @@
 package ru.uxair.authorization.config;
 
-import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
-import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
-import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.security.web.SecurityFilterChain;
-import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+
 import ru.uxair.authorization.service.UserService;
+import ru.uxair.authorization.util.handlers.JwtAuthenticationEntryPoint;
 
 @Configuration
 @EnableWebSecurity
-@RequiredArgsConstructor
-@EnableGlobalMethodSecurity(prePostEnabled = true)
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
-    private final JwtFilter jwtFilter;
+
+    private final JwtTokenProvider jwtTokenProvider;
     private final UserService userService;
 
-//    @Bean
-//    public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
-//        return http
-//                .httpBasic().disable()
-//                .csrf().disable()
-//                .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
-//                .and()
-//                .authorizeHttpRequests(
-//                        authz -> authz
-//                                .antMatchers("/api/auth/login", "/api/auth/token").permitAll()
-//                                .anyRequest().authenticated()
-//                                .and()
-//                                .addFilterAfter(jwtFilter, UsernamePasswordAuthenticationFilter.class)
-//                ).build();
-//    }
 
-    @Override
-    protected void configure(HttpSecurity http) throws Exception {
-        http
-                .csrf().disable()
-                .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
-                .and()
-                .authorizeRequests()
-                .antMatchers("/api/auth/login", "/api/auth/token").permitAll()
-                .anyRequest().authenticated()
-                .and()
-                .addFilterAfter(jwtFilter, UsernamePasswordAuthenticationFilter.class);
+    @Autowired
+    public SecurityConfig(JwtTokenProvider jwtTokenProvider, UserService userService) {
+        this.jwtTokenProvider = jwtTokenProvider;
+        this.userService = userService;
     }
 
     @Bean
@@ -62,8 +37,15 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     }
 
     @Override
-    public void configure(WebSecurity web) throws Exception {
-        web.ignoring().antMatchers("/swagger-ui/**", "/v3/api-docs/**");
+    protected void configure(HttpSecurity http) throws Exception {
+        http.cors().and().csrf().disable()
+                .authorizeRequests()
+                .antMatchers("/api/auth/**").permitAll()
+                .anyRequest().authenticated()
+                .and()
+                .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
+
+        http.apply(new JwtTokenFilterConfigurer(jwtTokenProvider, userService));
     }
 
     @Bean
@@ -72,8 +54,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     }
 
     @Override
-    protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-        auth.userDetailsService(userService).passwordEncoder(passwordEncoder());
+    public void configure(AuthenticationManagerBuilder auth) throws Exception {
+        auth.userDetailsService(userDetailsService()).passwordEncoder(passwordEncoder());
     }
-
 }

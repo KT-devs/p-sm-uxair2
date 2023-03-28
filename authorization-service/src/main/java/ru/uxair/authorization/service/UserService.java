@@ -25,6 +25,4 @@ public interface UserService extends UserDetailsService {
 
     void updateUser(User user);
 
-    Optional<User> getByUsername (@NonNull String username);
-
 }

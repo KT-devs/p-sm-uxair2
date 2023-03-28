@@ -1,13 +1,12 @@
 package ru.uxair.authorization.entity;
 
-import lombok.Getter;
-import lombok.Setter;
+import lombok.Data;
 
-@Setter
-@Getter
-public class JwtRequest {
+@Data
+public class AuthenticationRequest {
 
     private String username;
     private String password;
+
 
 }

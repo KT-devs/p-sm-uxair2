@@ -23,7 +23,7 @@ import java.util.Optional;
 
 @Service
 @Log4j2
-public class UserServiceImpl implements UserService, UserDetailsService {
+public class UserServiceImpl implements UserService {
 
     private final UserRepository userRepository;
     private final RoleRepository roleRepository;
@@ -101,17 +101,13 @@ public class UserServiceImpl implements UserService, UserDetailsService {
     }
 
     @Override
-    public Optional<User> getByUsername(@NonNull String username) {
-        List<User> users = getAll();
-        return users.stream()
-                .filter(user -> username.equals(user.getUsername()))
-                .findFirst();
-    }
-
-
-    @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        User user = getByUsername(username).orElseThrow();
-        return user;
+        User user = userRepository.findByUsername(username);
+        if (user == null) {
+            throw new UsernameNotFoundException("User not found with username: " + username);
+        }
+        Collection<SimpleGrantedAuthority> authorities = new ArrayList<>();
+        user.getRoles().forEach(role -> authorities.add(new SimpleGrantedAuthority(role.getRole())));
+        return new org.springframework.security.core.userdetails.User(user.getUsername(), user.getPassword(), authorities);
     }
 }

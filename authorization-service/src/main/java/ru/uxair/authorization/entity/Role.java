@@ -24,7 +24,7 @@ import javax.persistence.*;
 @Entity
 @Table(name = "roles")
 @Data
-public class Role implements GrantedAuthority {
+public class Role {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -39,8 +39,4 @@ public class Role implements GrantedAuthority {
     public Role() {
     }
 
-    @Override
-    public String getAuthority() {
-        return role;
-    }
 }
