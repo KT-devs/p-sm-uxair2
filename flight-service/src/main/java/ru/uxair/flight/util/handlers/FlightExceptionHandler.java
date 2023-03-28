@@ -6,24 +6,18 @@ import org.springframework.validation.FieldError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
+import ru.uxair.flight.util.exceptions.DestinationNotFoundException;
 import ru.uxair.flight.entity.Dto.ErrorResponseDto;
 import javax.validation.ConstraintViolation;
 import javax.validation.ConstraintViolationException;
-import javax.persistence.EntityNotFoundException;
-import org.springframework.dao.EmptyResultDataAccessException;
 import java.util.List;
 import java.util.stream.Collectors;
 
 @ControllerAdvice
 public class FlightExceptionHandler extends AbstractExceptionHandler{
 
-    @ExceptionHandler(EntityNotFoundException.class)
-    public ResponseEntity<ErrorResponseDto> notFoundExceptionHandler(EntityNotFoundException e) {
-        return buildErrorResponse(e, HttpStatus.NOT_FOUND);
-    }
-
-    @ExceptionHandler(EmptyResultDataAccessException.class)
-    public ResponseEntity<ErrorResponseDto> emptyResultDataExceptionHandler(EmptyResultDataAccessException e) {
+    @ExceptionHandler(DestinationNotFoundException.class)
+    public ResponseEntity<ErrorResponseDto> destinationNotFoundExceptionHandler(DestinationNotFoundException e) {
         return buildErrorResponse(e, HttpStatus.NOT_FOUND);
     }
 
