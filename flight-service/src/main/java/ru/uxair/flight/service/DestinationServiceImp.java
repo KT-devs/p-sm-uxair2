@@ -51,9 +51,9 @@ public class DestinationServiceImp implements DestinationService {
     @Override
     @Transactional
     public void deleteDestination(long id) {
-        destinationRepository.findById(id)
+        Destination destination = destinationRepository.findById(id)
                 .orElseThrow(() -> new DestinationNotFoundException(Long.toString(id)));
-        destinationRepository.deleteById(id);
+        destinationRepository.delete(destination);
     }
 
     @Override
