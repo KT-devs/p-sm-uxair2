@@ -2,9 +2,9 @@ package ru.uxair.flight.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.webjars.NotFoundException;
 import ru.uxair.flight.entity.Ticket;
 import ru.uxair.flight.repository.TicketRepository;
+import ru.uxair.flight.util.exceptions.TicketNotFoundException;
 
 
 import java.util.List;
@@ -20,36 +20,61 @@ public class TicketServiceImpl implements TicketService{
 
     @Override
     public List<Ticket> getAllTickets() {
-        return ticketRepository.findAll();
+        List<Ticket> tickets = ticketRepository.findAll();
+        if (tickets.isEmpty()) {
+            throw new TicketNotFoundException();
+        }
+        return tickets;
+
     }
 
     @Override
     public List<Ticket> getTicketsBySeatCategory(String category) {
-        return ticketRepository.findTicketBySeatCategory(category);
+        List<Ticket> tickets = ticketRepository.findTicketBySeatCategory(category);
+        if (tickets.isEmpty()) {
+            throw new TicketNotFoundException();
+        }
+        return tickets;
     }
 
     @Override
     public List<Ticket> getTicketByPassenger(String passenger) {
-        return ticketRepository.findAllTicketByPassenger(passenger);
+        List<Ticket> tickets = ticketRepository.findAllTicketByPassenger(passenger);
+        if (tickets.isEmpty()) {
+            throw new TicketNotFoundException();
+        }
+        return tickets;
     }
 
     @Override
     public List<Ticket> getTicketsByFlight(String flight) {
-        return ticketRepository.findTicketByFlight(flight);
+        List<Ticket> tickets = ticketRepository.findTicketByFlight(flight);
+        if (tickets.isEmpty()) {
+            throw new TicketNotFoundException();
+        }
+        return tickets;
     }
 
     @Override
     public List<Ticket> getTicketsFareMinToMax() {
-        return ticketRepository.findAllByOrderByFareAsc();
+        List<Ticket> tickets = ticketRepository.findAllByOrderByFareAsc();
+        if (tickets.isEmpty()) {
+            throw new TicketNotFoundException();
+        }
+        return tickets;
     }
     @Override
     public List<Ticket> getTicketsFareMaxToMin() {
-        return ticketRepository.findAllByOrderByFareDesc();
+        List<Ticket> tickets = ticketRepository.findAllByOrderByFareDesc();
+        if (tickets.isEmpty()) {
+            throw new TicketNotFoundException();
+        }
+        return tickets;
     }
     @Override
     public Ticket findTicketById(Long id) {
         Optional<Ticket> ticket = ticketRepository.findById(id);
-        return ticket.orElseThrow(()-> new NotFoundException("Билет с id "+id+" не найден"));
+        return ticket.orElseThrow(TicketNotFoundException::new);
     }
 
     @Override

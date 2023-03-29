@@ -5,7 +5,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import org.webjars.NotFoundException;
 import ru.uxair.flight.entity.Dto.TicketDto;
 import ru.uxair.flight.service.TicketService;
 import ru.uxair.flight.util.mapper.TicketMapper;
@@ -27,61 +26,37 @@ public class TicketControllerImpl implements TicketController {
     @Override
     public ResponseEntity<List<TicketDto>> getAllTickets() {
         log.info("get list all tickets");
-        List<TicketDto> tickets = ticketMapper.convertToListDto(ticketService.getAllTickets());
-        if (tickets.isEmpty()) {
-            throw new NotFoundException("Список пустой");
-        }
-        return new ResponseEntity<>(tickets, HttpStatus.OK);
+        return new ResponseEntity<>(ticketMapper.convertToListDto(ticketService.getAllTickets()), HttpStatus.OK);
     }
 
     @Override
     public ResponseEntity<List<TicketDto>> getTicketsBySeatCategory(@PathVariable String category) {
         log.info("get list tickets by seat category");
-        List<TicketDto> tickets = ticketMapper.convertToListDto(ticketService.getTicketsBySeatCategory(category));
-        if (tickets.isEmpty()) {
-            throw new NotFoundException("Список пустой");
-        }
-        return new ResponseEntity<>(tickets, HttpStatus.OK);
+        return new ResponseEntity<>(ticketMapper.convertToListDto(ticketService.getTicketsBySeatCategory(category)), HttpStatus.OK);
     }
 
     @Override
     public ResponseEntity<List<TicketDto>> getTicketByPassenger(@PathVariable String passenger) {
         log.info("get list tickets by passenger");
-        List<TicketDto> tickets = ticketMapper.convertToListDto(ticketService.getTicketByPassenger(passenger));
-        if (tickets.isEmpty()) {
-            throw new NotFoundException("Список пустой");
-        }
-        return new ResponseEntity<>(tickets, HttpStatus.OK);
+        return new ResponseEntity<>(ticketMapper.convertToListDto(ticketService.getTicketByPassenger(passenger)), HttpStatus.OK);
     }
 
     @Override
     public ResponseEntity<List<TicketDto>> getTicketByFlight(@PathVariable String flight) {
         log.info("get list tickets by flight");
-        List<TicketDto> tickets = ticketMapper.convertToListDto(ticketService.getTicketsByFlight(flight));
-        if (tickets.isEmpty()) {
-            throw new NotFoundException("Список пустой");
-        }
-        return new ResponseEntity<>(tickets, HttpStatus.OK);
+        return new ResponseEntity<>(ticketMapper.convertToListDto(ticketService.getTicketsByFlight(flight)), HttpStatus.OK);
     }
 
     @Override
     public ResponseEntity<List<TicketDto>> getTicketsFareMinToMax() {
         log.info("get list tickets by fare (min to max)");
-        List<TicketDto> tickets = ticketMapper.convertToListDto(ticketService.getTicketsFareMinToMax());
-        if (tickets.isEmpty()) {
-            throw new NotFoundException("Список пустой");
-        }
-        return new ResponseEntity<>(tickets, HttpStatus.OK);
+        return new ResponseEntity<>(ticketMapper.convertToListDto(ticketService.getTicketsFareMinToMax()), HttpStatus.OK);
     }
 
     @Override
     public ResponseEntity<List<TicketDto>> getTicketsFareMaxToMin() {
         log.info("get list tickets by fare (max to min)");
-        List<TicketDto> tickets = ticketMapper.convertToListDto(ticketService.getTicketsFareMaxToMin());
-        if (tickets.isEmpty()) {
-            throw new NotFoundException("Список пустой");
-        }
-        return new ResponseEntity<>(tickets, HttpStatus.OK);
+        return new ResponseEntity<>(ticketMapper.convertToListDto(ticketService.getTicketsFareMaxToMin()), HttpStatus.OK);
     }
 
     @Override
