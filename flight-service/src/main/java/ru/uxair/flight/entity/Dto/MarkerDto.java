@@ -1,4 +1,4 @@
-package ru.uxair.flight.util;
+package ru.uxair.flight.entity.Dto;
 
 public interface MarkerDto {
 

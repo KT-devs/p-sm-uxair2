@@ -8,7 +8,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import ru.uxair.flight.entity.Dto.TicketDto;
-import ru.uxair.flight.util.MarkerDto;
+import ru.uxair.flight.entity.Dto.MarkerDto;
 
 import javax.validation.Valid;
 import java.util.List;
