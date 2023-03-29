@@ -7,5 +7,4 @@ import ru.uxair.flight.entity.Aircraft;
 @Repository
 public interface AircraftRepository extends JpaRepository<Aircraft, Long> {
 
-    //To DO getById + Query(select a from Aircraft a join fetch a.seat where a.id =: id)
 }

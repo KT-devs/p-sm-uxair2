@@ -47,10 +47,6 @@ public class AircraftControllerImp implements AircraftController {
     @Override
     public List<AircraftDto> getAllAircraft() {
         log.info("get all aircraft");
-        List<AircraftDto> aircraftDtos = aircraftService.getAllAircraft();
-        if (aircraftDtos.isEmpty()) {
-            throw new EntityNotFoundException("Unable to find Aircraft");
-        }
         return aircraftService.getAllAircraft();
     }
 }

@@ -6,6 +6,7 @@ import ru.uxair.flight.entity.Dto.AircraftDto;
 public interface AircraftMapper {
 
     AircraftDto mapToAircraftDto(Aircraft aircraft);
+
     Aircraft mapToAircraftEntity(AircraftDto aircraftDto);
 
 }
