@@ -1,10 +1,12 @@
 package ru.uxair.flight.entity.Dto;
 
 
+
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.springframework.format.annotation.NumberFormat;
 
 import javax.validation.constraints.*;
 
@@ -14,8 +16,8 @@ import javax.validation.constraints.*;
 @Data
 public class TicketDto {
 
-    @Null(groups = MarkerDto.OnCreate.class)
     @NotNull(groups = MarkerDto.OnUpdate.class)
+    @Positive(groups = MarkerDto.OnUpdate.class)
     private Long id;
     @NotNull
     @Schema(description = "Пассажир")
@@ -31,6 +33,7 @@ public class TicketDto {
     private String inFlightServices;
     @NotNull
     @PositiveOrZero
+    @NumberFormat
     @Schema(description = "Стоимость билета")
     private float fare;
     @NotNull
@@ -39,4 +42,5 @@ public class TicketDto {
     @NotNull
     @Schema(description = "Рейс")
     private String flight;
+
 }

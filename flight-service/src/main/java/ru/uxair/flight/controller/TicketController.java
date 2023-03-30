@@ -73,7 +73,6 @@ public interface TicketController {
             @ApiResponse(responseCode = "409", description = "Такой билет уже существует") })
     @Operation(summary = "Сохранить билет в БД")
     @PostMapping
-    @Validated({MarkerDto.OnCreate.class})
     ResponseEntity<TicketDto> saveTicket(@Valid @RequestBody TicketDto ticketDto);
 
 
