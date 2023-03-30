@@ -1,4 +1,4 @@
-package ru.uxair1.flight-service.controller;
+package ru.uxair.flight.controller;
 
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.parameters.RequestBody;
