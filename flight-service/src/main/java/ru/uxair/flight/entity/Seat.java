@@ -1,4 +1,6 @@
-package ru.uxair1.flight-service.entity;
+package ru.uxair.flight.entity
+
+-service.entity;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;

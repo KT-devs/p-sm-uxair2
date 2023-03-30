@@ -1,4 +1,6 @@
-package ru.uxair1.flight-service.config;
+package ru.uxair.flight.config
+
+-service.config;
 
 
 import io.swagger.v3.oas.models.Components;

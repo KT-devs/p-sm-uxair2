@@ -1,4 +1,6 @@
-package ru.uxair1.flight-service.service;
+package ru.uxair.flight.service
+
+-service.service;
 
 import ru.uxair1.flightService.entity.Dto.SeatDTO;
 import ru.uxair1.flightService.entity.Flight;

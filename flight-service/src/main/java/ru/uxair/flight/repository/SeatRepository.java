@@ -1,4 +1,5 @@
-package ru.uxair1.flight-service.repository;
+package ru.uxair.flight.repository;
+
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;

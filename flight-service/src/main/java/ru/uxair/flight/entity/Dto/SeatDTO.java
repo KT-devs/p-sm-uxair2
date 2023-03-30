@@ -1,4 +1,6 @@
-package ru.uxair1.flight-service.entity.Dto;
+package ru.uxair.flight.entity.Dto
+
+-service.entity.Dto;
 
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.AllArgsConstructor;

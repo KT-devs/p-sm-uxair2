@@ -1,13 +1,10 @@
-package ru.uxair1.flight-service.service;
+package ru.uxair.flight.service;
 
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
-import ru.uxair1.flightService.entity.Flight;
-import ru.uxair1.flightService.entity.Seat;
+import ru.uxair.flight.entity.Seat;
+import ru.uxair.flight.repository.SeatRepository;
 import ru.uxair1.flightService.entity.SeatCategory;
-import ru.uxair1.flightService.repository.FlightRepository;
-import ru.uxair1.flightService.repository.SeatRepository;
-import ru.uxair1.flightService.service.SeatService;
 
 import java.util.List;
 import java.util.Optional;
