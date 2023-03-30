@@ -1,4 +1,4 @@
-package ru.uxair1.flight-service.controller;
+package ru.uxair.flight.controller;
 
 
 import io.swagger.v3.oas.annotations.parameters.RequestBody;
@@ -15,7 +15,7 @@ import java.util.List;
 
 @RestController
 @AllArgsConstructor
-public class SeatController implements ru.uxair1.flight.SeatControllerInterface {
+public class SeatController implements SeatControllerInterface {
     private final SeatService seatService;
 
 
