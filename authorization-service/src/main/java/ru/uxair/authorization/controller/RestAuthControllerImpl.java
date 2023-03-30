@@ -3,7 +3,6 @@ package ru.uxair.authorization.controller;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.bind.annotation.*;
@@ -18,19 +17,17 @@ import java.util.Map;
 
 @RestController
 @RequestMapping("/api/auth")
-public class AuthController {
-
-    private AuthenticationManager authenticationManager;
+public class RestAuthControllerImpl implements RestAuthController {
     private JwtTokenProvider jwtTokenProvider;
     private UserService userService;
 
     @Autowired
-    public AuthController(AuthenticationManager authenticationManager, JwtTokenProvider jwtTokenProvider, UserService userService) {
-        this.authenticationManager = authenticationManager;
+    public RestAuthControllerImpl(JwtTokenProvider jwtTokenProvider, UserService userService) {
         this.jwtTokenProvider = jwtTokenProvider;
         this.userService = userService;
     }
 
+    @Override
     @PostMapping("/login")
     public ResponseEntity<?> login(@RequestBody AuthenticationRequest data) {
         try {
@@ -51,6 +48,7 @@ public class AuthController {
         return null;
     }
 
+    @Override
     @GetMapping("/validateToken")
     public ResponseEntity<?> validateToken(HttpServletRequest request) {
         try {
