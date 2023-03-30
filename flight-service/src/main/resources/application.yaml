@@ -1,0 +1,9 @@
+spring:
+  datasource:
+    url: jdbc:postgresql://localhost:5432/air
+    username: air
+    driver-class-name: org.postgresql.Driver
+    password: air
+
+  jpa:
+    database-platform: org.hibernate.dialect.PostgreSQL95Dialect
