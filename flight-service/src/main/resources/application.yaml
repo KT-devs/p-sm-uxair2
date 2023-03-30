@@ -1,0 +1,12 @@
+#datasourse?
+
+spring:
+  datasource:
+    url: jdbc:postgresql://localhost:5433/airline_db
+    username: postgres
+    password: root
+
+# + bootstrap.yaml config TO DO
+# + eurekaServerClient TO DO
+# + springCloud TO DO
+
