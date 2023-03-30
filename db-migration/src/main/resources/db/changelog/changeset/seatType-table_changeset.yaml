@@ -1,0 +1,36 @@
+databaseChangeLog:
+  - changeSet:
+      id: create-seatType-table
+      author: Bronislav
+      changes:
+        - createTable:
+            tableName: seatType
+            columns:
+              - column:
+                  name: id
+                  type: serial
+                  constraints:
+                    primaryKey: true
+              - column:
+                  name: category
+                  type: seatCategory
+              - column:
+                  name: hasWindow
+                  type: boolean
+                  constraints:
+                    nullable: false
+              - column:
+                  name: hasAddPlaceForLegs
+                  type: boolean
+                  constraints:
+                    nullable: false
+              - column:
+                  name: hasTV
+                  type: boolean
+                  constraints:
+                    nullable: false
+              - column:
+                  name: isAisle
+                  type: boolean
+                  constraints:
+                    nullable: false
