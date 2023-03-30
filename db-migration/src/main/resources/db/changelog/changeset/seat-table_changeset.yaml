@@ -1,0 +1,28 @@
+databaseChangeLog:
+  - changeSet:
+      id: create-seat-table
+      author: Bronislav
+      changes:
+        - createTable:
+            tableName: "seat"
+            columns:
+              - column:
+                  name: id
+                  type: serial
+                  constraints:
+                    primaryKey: true
+              - column:
+                  name: aircraftId
+                  type: integer
+                  constraints:
+                    nullable: false
+              - column:
+                  name: seatType
+                  type: integer
+                  constraints:
+                    nullable: false
+              - column:
+                  name: seatNumber
+                  type: varchar(2)
+                  constraints:
+                    nullable: false
