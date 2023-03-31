@@ -1,0 +1,45 @@
+databaseChangeLog:
+  - changeSet:
+      id: create-aircraft
+      author: Milovantsev Vadim
+      changes:
+        - createTable:
+            tableName: aircraft
+            columns:
+              - column:
+                  name: id
+                  type: BIGINT
+                  autoIncrement: true
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: board_number
+                  type: varchar(7)
+                  constraints:
+                    nullable: false
+                    unique: true
+              - column:
+                  name: stamp
+                  type: varchar(50)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: icao_code
+                  type: varchar(6)
+                  constraints:
+                    nullable: false
+#              - addForeignKeyConstraint: TO DO
+#                  baseTableName: Aircraft
+#                  baseColumnNames: icao_code
+#                  referencedTableName: AircraftType
+#                  referencedColumnNames: icao_code
+#                  constraintName: FK_Aircraft_AircraftType
+              - column:
+                  name: year_of_release
+                  type: int
+                  constraints:
+                    nullable: false
+              - column:
+                  name: seats
+                  type: int
