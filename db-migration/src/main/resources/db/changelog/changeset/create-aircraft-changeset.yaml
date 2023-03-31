@@ -25,11 +25,6 @@ databaseChangeLog:
                   constraints:
                     nullable: false
               - column:
-                  name: country_code
-                  type: int
-                  constraints:
-                    nullable: false
-              - column:
                   name: icao_code
                   type: varchar(6)
                   constraints:
