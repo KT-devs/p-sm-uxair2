@@ -2,53 +2,35 @@ package ru.uxair.flight.service;
 
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
-import ru.uxair.flight.entity.Seat;
-import ru.uxair.flight.repository.SeatRepository;
-import ru.uxair1.flightService.entity.SeatCategory;
-
-import java.util.List;
-import java.util.Optional;
+import ru.uxair1.flightService.entity.Dto.SeatDto;
+import ru.uxair1.flightService.entity.Seat;
+import ru.uxair1.flightService.repository.SeatRepository;
+import ru.uxair1.flightService.util.exceptions.SeatNotFoundExeption;
 
 @Service
 @AllArgsConstructor
 public class SeatServiceImpl implements SeatService {
-
     private final SeatRepository seatRepository;
-private final FlightRepository flightRepository;
     @Override
-    public Seat createSeat(Seat seat) {
+    public Seat createSeat(Long aircraftId, SeatDto seatDto) {
+        Seat seat = new Seat();
+        seat.setSeatNumber(seatDto.getSeatNumber());
+        seat.setSeatType(seatDto.getSeatType());
+        seat.setAircraftId(aircraftId);
         return seatRepository.save(seat);
     }
-
     @Override
-    public List<Seat> getAllSeats() {
-        return seatRepository.findAll();
-    }
-
-    @Override
-    public List<Seat> getSeatsByFlightId(Long flightId) {
-        return seatRepository.findByFlightId(flightId);
-    }
-    @Override
-    public List<Seat> getSeatsByFlightIdAndCategory(Long flightId, SeatCategory category) {
-        return seatRepository.findByFlightIdAndSeatTypeCategory(flightId, category);
-    }
-
-    @Override
-    public Seat updateSeat(Seat seat) {
+    public Seat updateSeat(Long aircraftId, Long seatId, SeatDto seatDto) {
+        Seat seat = seatRepository.findByIdAndAircraftId(aircraftId, seatId)
+                .orElseThrow(() -> new SeatNotFoundExeption("Seat not found"));
+        seat.setSeatNumber(seatDto.getSeatNumber());
+        seat.setSeatType(seatDto.getSeatType());
         return seatRepository.save(seat);
     }
-
     @Override
-    public void deleteSeat(Long id) {
-        seatRepository.deleteById(id);
-    }
-
-    @Override
-    public Flight getFlightById(Long id) {
-        Optional<Flight> flightOptional = flightRepository.findById(id);
-
-        return flightOptional.orElse(null);
+    public Seat getSeat(Long aircraftId, Long seatId) {
+        return seatRepository.findByIdAndAircraftId(aircraftId, seatId)
+                .orElseThrow(() -> new SeatNotFoundExeption("Seat not found"));
     }
 }
 

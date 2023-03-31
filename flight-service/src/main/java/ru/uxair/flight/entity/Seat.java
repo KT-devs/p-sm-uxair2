@@ -1,11 +1,10 @@
-package ru.uxair.flight.entity
-
--service.entity;
+package ru.uxair.flight.entity;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import ru.uxair1.flightService.entity.SeatType;
 
 import javax.persistence.*;
 
@@ -26,8 +25,8 @@ public class Seat {
     private Long aircraftId;
 
     @ManyToOne
-    @JoinColumn(name = "seat_type_id")
-    private ru.uxair1.flight.SeatType seatType;
+    @JoinColumn(name = "seatType")
+    private SeatType seatType;
 
 
     @Column(name = "seatNumder")
