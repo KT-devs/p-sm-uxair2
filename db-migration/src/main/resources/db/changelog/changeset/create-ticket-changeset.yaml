@@ -1,0 +1,50 @@
+databaseChangeLog:
+  - changeSet:
+      id: create-ticket
+      author: Denis Romanov
+      changes:
+        - createTable:
+            tableName: ticket
+            columns:
+              - column:
+                  name: id
+                  type: bigint
+                  autoIncrement: true
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: passenger
+                  type: varchar(255)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: booking
+                  type: varchar(255)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: seat_category
+                  type: varchar(255)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: in_flight_service
+                  type: varchar(255)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: fare
+                  type: float
+                  constraints:
+                    nullable: false
+              - column:
+                  name: currency
+                  type: varchar(255)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: flight
+                  type: varchar(255)
+                  constraints:
+                    nullable: false
