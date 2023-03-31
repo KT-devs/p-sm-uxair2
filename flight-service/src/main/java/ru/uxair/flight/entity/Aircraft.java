@@ -27,6 +27,7 @@ public class Aircraft {
 //    @JoinColumn(name = "icao", referencedColumnName = "icao")
 //    private AircraftType ICAOCode;
 
+    @Column(name = "icao_code")
     private String ICAOCode;
 
     @Column(name = "year_of_release")
@@ -35,6 +36,6 @@ public class Aircraft {
 //    @Column(name = "seats")
 //    @OneToMany(mappedBy = "aircraft")
 //    private Set<Seat> seats;
-    private String seats;
+    private int seats;
 
 }

@@ -30,6 +30,6 @@ public class AircraftDto {
     @Min(value = 1980, message = "Year of release cannot be less than 1980")
     private int yearOfRelease;
 
-    private String seats; // TO DO Set<SeatDto>
+    private int seats; // TO DO Set<SeatDto>
 
 }
