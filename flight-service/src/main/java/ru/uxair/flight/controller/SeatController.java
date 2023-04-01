@@ -12,7 +12,6 @@ import ru.uxair1.flightService.entity.Seat;
 import ru.uxair1.flightService.service.SeatService;
 
 @RestController
-@AllArgsConstructor
 public class SeatController implements SeatControllerInterface {
     private final SeatService seatService;
 @Override
