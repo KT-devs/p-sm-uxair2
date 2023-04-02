@@ -2,22 +2,40 @@ package ru.uxair.flight.controller;
 
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.parameters.RequestBody;
-import io.swagger.v3.oas.annotations.tags.Tag;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import org.springframework.http.ResponseEntity;
-import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.*;
 import ru.uxair.flight.entity.Dto.SeatTypeDto;
 
-@Tag(name = "Seat Types", description = "CRUD operations for seat types")
+
+import javax.validation.Valid;
+
 public interface SeatTypeController {
 
-    @Operation(summary = "Create a new seat type")
-    ResponseEntity<SeatTypeDto> createSeatType(@RequestBody @Validated SeatTypeDto seatTypeDto);
+    @Operation(summary = "Get seat type by ID",
+            responses = {
+                    @ApiResponse(responseCode = "200", description = "OK"),
+                    @ApiResponse(responseCode = "404", description = "Not Found")
+            })
+    @GetMapping("/seatTypes/{seatTypeId}")
+    ResponseEntity<SeatTypeDto> getSeatTypeById(
+            @PathVariable Long seatTypeId);
 
-    @Operation(summary  = "Update a seat type")
-    ResponseEntity<SeatTypeDto> updateSeatType(@PathVariable("id") Long id,
-                                               @RequestBody @Validated SeatTypeDto seatTypeDto);
-    @Operation(summary  = "Get a seat type by id")
-    ResponseEntity<SeatTypeDto> getSeatTypeById(@PathVariable("id") Long id);
+    @Operation(summary = "Create new seat type",
+            responses = {
+                    @ApiResponse(responseCode = "201", description = "Created")
+            })
+    @PostMapping("/seatTypes")
+    ResponseEntity<SeatTypeDto> createSeatType(
+            @RequestBody SeatTypeDto SeatTypeDto);
+
+    @Operation(summary = "Update seat type by ID",
+            responses = {
+                    @ApiResponse(responseCode = "200", description = "OK"),
+                    @ApiResponse(responseCode = "404", description = "Not Found")
+            })
+    @PutMapping("/seatTypes/{seatTypeId}")
+    ResponseEntity<SeatTypeDto> updateSeatTypeById(
+            @PathVariable Long seatTypeId,
+            @RequestBody SeatTypeDto SeatTypeDto);
 }
-

@@ -1,42 +1,48 @@
 package ru.uxair.flight.controller;
 
-import lombok.RequiredArgsConstructor;
-import org.springframework.http.HttpStatus;
+import lombok.AllArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import ru.uxair.flight.entity.Dto.SeatTypeDto;
-import ru.uxair.flight.entity.SeatType;
 import ru.uxair.flight.service.SeatTypeService;
-import ru.uxair.flight.util.mapper.SeatTypeMapper;
+
+
+import java.net.URI;
 
 @RestController
-@RequestMapping("/seatTypes")
-@RequiredArgsConstructor
+@RequestMapping("/api/v1")
+@AllArgsConstructor
 public class SeatTypeControllerImpl implements SeatTypeController {
 
     private final SeatTypeService seatTypeService;
 
     @Override
-    public ResponseEntity<SeatTypeDto> createSeatType(SeatTypeDto seatTypeDto) {
-        SeatType seatType = SeatTypeMapper.toEntity(seatTypeDto);
-        seatType = seatTypeService.createSeatType(seatType);
-        SeatTypeDto createdSeatTypeDto = SeatTypeMapper.toDTO(seatType);
-        return new ResponseEntity<>(createdSeatTypeDto, HttpStatus.CREATED);
+    public ResponseEntity<SeatTypeDto> getSeatTypeById( Long seatTypeId) {
+        SeatTypeDto SeatTypeDto = seatTypeService.getSeatTypeById(seatTypeId);
+        if (SeatTypeDto != null) {
+            return ResponseEntity.ok(SeatTypeDto);
+        } else {
+            return ResponseEntity.notFound().build();
+        }
     }
 
     @Override
-    public ResponseEntity<SeatTypeDto> updateSeatType(Long id, SeatTypeDto seatTypeDto) {
-        SeatType seatType = SeatTypeMapper.toEntity(seatTypeDto);
-        seatType = seatTypeService.updateSeatType(id, seatType);
-        SeatTypeDto updatedSeatTypeDto = SeatTypeMapper.toDTO(seatType);
-        return new ResponseEntity<>(updatedSeatTypeDto, HttpStatus.OK);
+    public ResponseEntity<SeatTypeDto> createSeatType( SeatTypeDto SeatTypeDto) {
+        SeatTypeDto createdSeatTypeDto = seatTypeService.createSeatType(SeatTypeDto);
+        URI location = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}")
+                .buildAndExpand(createdSeatTypeDto.getId()).toUri();
+        return ResponseEntity.created(location).body(createdSeatTypeDto);
     }
 
     @Override
-    public ResponseEntity<SeatTypeDto> getSeatTypeById(Long id) {
-        SeatType seatType = seatTypeService.getSeatTypeById(id);
-        SeatTypeDto seatTypeDto = SeatTypeMapper.toDTO(seatType);
-        return new ResponseEntity<>(seatTypeDto, HttpStatus.OK);
+    public ResponseEntity<SeatTypeDto> updateSeatTypeById( Long seatTypeId,SeatTypeDto SeatTypeDto) {
+        SeatTypeDto updatedSeatTypeDto = seatTypeService.updateSeatTypeById(seatTypeId, SeatTypeDto);
+        if (updatedSeatTypeDto != null) {
+            return ResponseEntity.ok(updatedSeatTypeDto);
+        } else {
+            return ResponseEntity.notFound().build();
+        }
     }
 }

@@ -4,11 +4,8 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import ru.uxair1.flightService.entity.Seat;
-import ru.uxair1.flightService.entity.SeatCategory;
-
 import javax.persistence.*;
-import java.util.List;
+import java.util.Set;
 
 @Entity
 @Data
@@ -38,6 +35,6 @@ public class SeatType {
     @Column(name = "isAisle")
     private boolean isAisle;
 
-    @OneToMany(mappedBy = "seatType")
-    private List<Seat> seats;
+    @OneToMany(fetch = FetchType.LAZY,mappedBy = "seatType")
+    private Set<Seat> seats;
 }
