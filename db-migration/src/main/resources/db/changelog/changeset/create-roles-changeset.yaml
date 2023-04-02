@@ -1,0 +1,51 @@
+databaseChangeLog:
+  - changeSet:
+      id: create-roles
+      author: Kozlov German
+      changes:
+        - createTable:
+            tableName: users
+            columns:
+              - column:
+                  name: id
+                  type: BIGINT
+                  autoIncrement: true
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: role
+                  type: varchar(50)
+                  constraints:
+                    nullable: false
+                    unique: true
+
+  - changeSet:
+      id: 1.0.1
+      author: Kozlov German
+      comment: "Roles"
+      changes:
+        - insert:
+            tableName: roles
+            columns:
+              - column:
+                  name: username
+                  value: "ROLE_SUPERADMIN"
+        - insert:
+            tableName: roles
+            columns:
+              - column:
+                  name: username
+                  value: "ROLE_ADMIN"
+        - insert:
+            tableName: roles
+            columns:
+              - column:
+                  name: username
+                  value: "ROLE_MANAGER"
+        - insert:
+            tableName: roles
+            columns:
+              - column:
+                  name: username
+                  value: "ROLE_CUSTOMER"

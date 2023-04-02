@@ -1,0 +1,73 @@
+databaseChangeLog:
+  - changeSet:
+      id: create-users
+      author: Kozlov German
+      changes:
+        - createTable:
+            tableName: users
+            columns:
+              - column:
+                  name: id
+                  type: BIGINT
+                  autoIncrement: true
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: username
+                  type: varchar(50)
+                  constraints:
+                    nullable: false
+                    unique: true
+              - column:
+                  name: password
+                  type: varchar(200)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: firstName
+                  type: varchar(50)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: lastName
+                  type: varchar(50)
+                  constraints:
+                    nullable: false
+
+
+  - changeSet:
+      id: 1.0.1
+      author: Kozlov German
+      comment: "Users"
+      changes:
+        - insert:
+            tableName: users
+            columns:
+              - column:
+                  name: username
+                  value: "admin@mail.ru"
+              - column:
+                  name: password
+                  value: "admin"
+              - column:
+                  name: firstName
+                  value: "admin"
+              - column:
+                  name: lastName
+                  value: "admin"
+        - insert:
+            tableName: users
+            columns:
+              - column:
+                  name: username
+                  value: "usern@mail.ru"
+              - column:
+                  name: password
+                  value: "user"
+              - column:
+                  name: firstName
+                  value: "user"
+              - column:
+                  name: lastName
+                  value: "user"
