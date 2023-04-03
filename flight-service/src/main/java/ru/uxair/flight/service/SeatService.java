@@ -1,13 +1,15 @@
 package ru.uxair.flight.service;
 
-import ru.uxair1.flightService.entity.Dto.SeatDto;
-import ru.uxair1.flightService.entity.Seat;
+import ru.uxair.flight.entity.Dto.SeatDto;
+
+
+import java.util.List;
 
 public interface SeatService {
 
-    Seat createSeat(Long aircraftId, SeatDto seatDto);
+    SeatDto getSeatById(Long aircraftId);
 
-    Seat updateSeat(Long aircraftId, Long seatId, SeatDto seatDto);
+    SeatDto createSeat(SeatDto seatDto);
 
-    Seat getSeat(Long aircraftId, Long seatId);
+    SeatDto updateSeatById(Long aircraftId, SeatDto SeatDto);
 }
